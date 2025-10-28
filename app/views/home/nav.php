@@ -1,7 +1,3 @@
-<?php
-require_once __DIR__ . '/../../config/dbconnect.php';
-?>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
     <div class="container px-4 px-lg-5">
         <!-- Logo, tên shop -->
@@ -34,7 +30,7 @@ require_once __DIR__ . '/../../config/dbconnect.php';
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="newProducts">Sản phẩm mới nhất</a></li>
+                        <li><a class="dropdown-item" href="#newProducts">Sản phẩm mới nhất</a></li>
                     </ul>
                 </li>
 
@@ -51,13 +47,13 @@ require_once __DIR__ . '/../../config/dbconnect.php';
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="logout.php">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="index.php?page=logout">Đăng xuất</a></li>
                         </ul>
                     </li>
                 <?php else: ?>
                     <!-- chưa đăng nhập -->
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Đăng nhập</a>
+                        <a class="nav-link" href="index.php?page=login">Đăng nhập</a>
                     </li>
                 <?php endif; ?>
 

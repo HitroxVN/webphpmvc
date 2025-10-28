@@ -1,8 +1,11 @@
 <?php
+ob_start();
 require_once __DIR__ . "/../app/controllers/CategoryController.php";
 require_once __DIR__ . "/../app/controllers/ProductController.php";
+require_once __DIR__ . "/../app/controllers/AuthController.php";
 $cateC = new CategoryController();
 $productC = new ProductController();
+$authC = new AuthController();
 $main = $_GET['page'] ?? 'home';
 ?>
 <!doctype html>
@@ -31,6 +34,15 @@ $main = $_GET['page'] ?? 'home';
             case 'products':
                 $productC->listProduct();
                 break;
+            case 'register':
+                $authC->register();
+                break;
+            case 'login':
+                $authC->login();
+                break;
+            case 'logout':
+                $authC->logout();
+                break;
             default:
                 $productC->home();
                 // echo "test pages";
@@ -44,3 +56,6 @@ $main = $_GET['page'] ?? 'home';
 </body>
 
 </html>
+<?php
+ob_end_flush();
+?>

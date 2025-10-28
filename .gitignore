@@ -1,3 +1,4 @@
 .env
 public/uploads/
 db.sql
+ct.txt

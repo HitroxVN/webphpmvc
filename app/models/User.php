@@ -11,6 +11,28 @@ class User
         $this->conn = $connect;
     }
 
+    // thêm user
+    public function add($email, $password, $full_name = null, $phone = null, $address = null, $role = 'customer', $status = 'active'){
+        $sql = "INSERT INTO {$this->table} (full_name, email, password, phone, address, role, status) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("sssssss", $full_name, $email, $password, $phone, $address, $role, $status);
+        $rs = $stmt->execute();
+        $stmt->close();
+        return $rs;
+    }
+
+    // lấy user qua email
+    public function getByEmail($email){
+        $sql = "SELECT * FROM {$this->table} WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $rs = $stmt->get_result();
+        $p = $rs->fetch_assoc();
+        $stmt->close();
+        return $p ?: null;
+    }
+
     // lấy ds user
     public function getAll()
     {
