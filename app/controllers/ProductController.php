@@ -39,6 +39,15 @@ class ProductController extends Controller
         $this->view('home/products', ['products' => $products]);
     }
 
+    // load theo danh mục
+    public function listProductByCate($cid){
+        $product = $this->product->getByCategory($cid);
+        foreach($product as &$p){
+            $p['main_image'] = $this->image->getPrimaryImage($p['id']);
+        }
+        $this->view('home/products', ['products' => $product]);
+    }
+
     // về trang home
     public function home()
     {

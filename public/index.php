@@ -36,7 +36,11 @@ $main = $_GET['page'] ?? 'home';
                 }
                 break;
             case 'category':
-                echo "category page";
+                // echo "category page";
+                if(isset($_GET['id'])){
+                    $cid = $_GET['id'];
+                    $productC->listProductByCate($cid);
+                }
                 break;
             case 'products':
                 $productC->listProduct();

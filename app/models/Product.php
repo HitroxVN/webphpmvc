@@ -78,6 +78,18 @@ class Product
         return $p;
     }
 
+    // lấy san phẩm theo danh mục
+    public function getByCategory($cid){
+        $sql = "SELECT * FROM {$this->tableProduct} WHERE category_id = ? AND status = 'active'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $cid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rs = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $rs;
+    }
+
     // lấy ds sản phẩm mới nhất theo create-at
     public function getNewProduct()
     {
