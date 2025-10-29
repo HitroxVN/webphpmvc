@@ -41,7 +41,7 @@ class UserController extends Controller
             }
 
             // cập nhập bình thường
-            $success = $this->p->update($id, $full_name, $email, $phone, $address);
+            $success = $this->p->update($id, $full_name, $email, $phone, $address, $u['role'], $u['status']);
             if ($success) {
                 $new = $this->p->getByEmail($email);
                 $_SESSION['user'] = $new;

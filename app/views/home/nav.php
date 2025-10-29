@@ -57,6 +57,12 @@
                     </li>
                 <?php endif; ?>
 
+                <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
+                    <li class="nav-item">
+                    <a class="nav-link" href="admin">Trang quản lý</a>
+                </li>
+                <?php endif; ?>
+
 
             </ul>
 
