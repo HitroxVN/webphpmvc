@@ -18,6 +18,47 @@ class UserController extends Controller
         $this->view('admin/users', ['users' => $users]);
     }
 
+    public function showInfo()
+    {
+        $email = $_SESSION['user']['email']; // session email hiện tại
+        $u = $this->p->getByEmail($email); // data view hiện tại
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $full_name = $_POST['full_name'] ?? '';
+            $input_email = $_POST['email'] ?? '';
+            $phone = $_POST['phone'] ?? '';
+            $address = $_POST['address'] ?? '';
+            $notify = [];
+
+            $checkEmail = $this->p->getByEmail($input_email);
+            if ($input_email != $email && $checkEmail) { // chỉ kiểm tra khi đổi email
+                $notify['fail'] = "Email này đã tồn tại";
+                $this->view("home/profile", [
+                    'user' => $u,
+                    'notify' => $notify
+                ]);
+                return;
+            }
+
+            // cập nhập bình thường
+            $success = $this->p->update($id, $full_name, $email, $phone, $address);
+            if ($success) {
+                $new = $this->p->getByEmail($email);
+                $_SESSION['user'] = $new;
+                $notify['ok'] = "Cập nhập thông tin thành công";
+            } else {
+                $notify['fail'] = "Cập nhật thất bại";
+            }
+
+            $this->view("home/profile", [
+                'user' => $new,
+                'notify' => $notify
+            ]);
+        } else {
+            $this->view('home/profile', ['user' => $u]);
+        }
+    }
+
     public function edit()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -40,7 +81,7 @@ class UserController extends Controller
 
             $this->redirect('index.php?page=users');
         }
-        if (!empty($_GET['id'])){
+        if (!empty($_GET['id'])) {
             $id = $_GET['id'];
             $u = $this->p->getById($id);
 

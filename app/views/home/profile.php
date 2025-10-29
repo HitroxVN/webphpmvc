@@ -1,12 +1,3 @@
-<?php
-require_once __DIR__ . '/../../core/userupdate.php';
-if (!isset($_SESSION['user'])) {
-  redirect('/login.php');
-  exit;
-}
-$user = $_SESSION['user'];
-?>
-
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
@@ -19,9 +10,22 @@ $user = $_SESSION['user'];
           <p class="mb-4 text-center">Xin chào, <strong><?= htmlspecialchars($user['full_name']) ?></strong></p>
 
           <form method="post">
+            <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+            <?php if (!empty($notify)): ?>
+              <?php foreach ($notify as $type => $msg): ?>
+                <?php
+                $alertClass = ($type === 'ok') ? 'success' : 'danger';
+                ?>
+                <div class="alert alert-<?= $alertClass ?> alert-dismissible fade show" role="alert">
+                  <?= htmlspecialchars($msg) ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php endforeach; ?>
+            <?php endif; ?>
+
             <div class="mb-3">
               <label class="form-label">Họ tên</label>
-              <input type="text" name="name" class="form-control"
+              <input type="text" name="full_name" class="form-control"
                 value="<?= htmlspecialchars($user['full_name']) ?>" required>
             </div>
 

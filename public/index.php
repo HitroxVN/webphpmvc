@@ -1,11 +1,14 @@
 <?php
 ob_start();
+require_once __DIR__ . "/../app/core/Session.php";
 require_once __DIR__ . "/../app/controllers/CategoryController.php";
 require_once __DIR__ . "/../app/controllers/ProductController.php";
 require_once __DIR__ . "/../app/controllers/AuthController.php";
+require_once __DIR__ . "/../app/controllers/UserController.php";
 $cateC = new CategoryController();
 $productC = new ProductController();
 $authC = new AuthController();
+$userC = new UserController();
 $main = $_GET['page'] ?? 'home';
 ?>
 <!doctype html>
@@ -26,7 +29,11 @@ $main = $_GET['page'] ?? 'home';
     <?php 
         switch ($main) {
             case 'profile':
-                include_once 'home/profile.php';
+                if(Session::checkLogin()){
+                    $userC->showInfo();
+                } else {
+                    $productC->home();
+                }
                 break;
             case 'category':
                 echo "category page";
