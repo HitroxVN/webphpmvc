@@ -43,7 +43,13 @@ $main = $_GET['page'] ?? 'home';
                 }
                 break;
             case 'products':
-                $productC->listProduct();
+                if(isset($_GET['id'])){
+                    $id = $_GET['id'];
+                    $productC->productDetails($id);
+                } else {
+                    $productC->listProduct();
+                }
+                
                 break;
             case 'register':
                 $authC->register();

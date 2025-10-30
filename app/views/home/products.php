@@ -24,7 +24,7 @@
               <div class="card-body text-center">
                 <h5 class="card-title"><?php echo $p['name']; ?></h5>
                 <p class="text-primary fw-bold mb-3"><?php echo number_format($p['price'], 0, ',', '.'); ?> vnđ</p>
-                <a href="#" class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+                <a href="index.php?page=products&id=<?php echo $p['id']; ?>" class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
               </div>
             </div>
           </div>

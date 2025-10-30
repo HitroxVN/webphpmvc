@@ -39,10 +39,40 @@ class ProductController extends Controller
         $this->view('home/products', ['products' => $products]);
     }
 
+    // chi tiết sản phaam
+    public function productDetails($id)
+    {
+        $products = $this->product->getById($id);
+        $products['main_image'] = $this->image->getPrimaryImage($products['id']);
+        $products['list_images'] = $this->image->getUrlByProduct($products['id']);
+        $variants = $this->variant->getByProductId($products['id']);
+
+        $colors = [];
+        $sizes = [];
+        $totalStock = 0;
+
+        foreach ($variants as $v) {
+            if (!in_array($v['color'], $colors)) {
+                $colors[] = $v['color'];
+            }
+            if (!in_array($v['size'], $sizes)) {
+                $sizes[] = $v['size'];
+            }
+            $totalStock += $v['stock'];
+        }
+
+        $products['colors'] = $colors;
+        $products['sizes'] = $sizes;
+        $products['stock'] = $totalStock;
+
+        $this->view('home/product_details', ['products' => $products]);
+    }
+
     // load theo danh mục
-    public function listProductByCate($cid){
+    public function listProductByCate($cid)
+    {
         $product = $this->product->getByCategory($cid);
-        foreach($product as &$p){
+        foreach ($product as &$p) {
             $p['main_image'] = $this->image->getPrimaryImage($p['id']);
         }
         $this->view('home/products', ['products' => $product]);
@@ -139,9 +169,9 @@ class ProductController extends Controller
             if (!empty($_POST['delete_image_ids'])) {
                 foreach ($_POST['delete_image_ids'] as $img_id) {
                     $images = $this->image->getUrlById($img_id);
-                    if($images) {
+                    if ($images) {
                         $file_path = __DIR__ . "/../../public/" . $images;
-                        if(file_exists($file_path)){
+                        if (file_exists($file_path)) {
                             unlink($file_path);
                         }
                     }

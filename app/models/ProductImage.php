@@ -77,6 +77,18 @@ class ProductImage
         return $row ? $row['image_url'] : null;
     }
 
+    //lấy list url ảnh phụ
+    public function getUrlByProduct($pid)
+    {
+        $sql = "SELECT image_url FROM {$this->table} WHERE product_id = ? and is_primary = false";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $pid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $row;
+    }
 
     // thêm ảnh
     public function create($product_id, $image_url, $is_primary)

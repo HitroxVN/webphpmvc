@@ -4,7 +4,7 @@
       <h4 class="mb-0">Sửa sản phẩm</h4>
     </div>
     <div class="card-body">
-      <?php $p = $product[0]; ?>
+      <?php $p = $product; ?>
       <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="edit_id" value="<?php echo $p['id']; ?>">
 

@@ -73,7 +73,7 @@ class Product
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $rs = $stmt->get_result();
-        $p = $rs->fetch_all(MYSQLI_ASSOC);
+        $p = $rs->fetch_assoc();
         $stmt->close();
         return $p;
     }
