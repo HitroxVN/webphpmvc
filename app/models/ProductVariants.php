@@ -29,6 +29,24 @@ class ProductVariant {
         return $data;
     }
 
+    // lấy theo id
+    public function getById($id) {
+        $sql = "SELECT * FROM {$this->table} WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        $stmt->close();
+        return $data;
+    }
+
 
     // thêm thuộc tính
     public function create($product_id, $color, $size, $stock) {

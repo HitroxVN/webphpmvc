@@ -5,10 +5,12 @@ require_once __DIR__ . "/../app/controllers/CategoryController.php";
 require_once __DIR__ . "/../app/controllers/ProductController.php";
 require_once __DIR__ . "/../app/controllers/AuthController.php";
 require_once __DIR__ . "/../app/controllers/UserController.php";
+require_once __DIR__ . "/../app/controllers/CartController.php";
 $cateC = new CategoryController();
 $productC = new ProductController();
 $authC = new AuthController();
 $userC = new UserController();
+$cartC = new CartController();
 $main = $_GET['page'] ?? 'home';
 ?>
 <!doctype html>
@@ -50,6 +52,9 @@ $main = $_GET['page'] ?? 'home';
                     $productC->listProduct();
                 }
                 
+                break;
+            case 'cart':
+                $cartC->listCart($_SESSION['user']['id']);
                 break;
             case 'register':
                 $authC->register();

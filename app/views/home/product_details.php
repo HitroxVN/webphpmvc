@@ -7,8 +7,8 @@
                 <img src="<?php echo $products['main_image']; ?>" class="card-img-top" width="350" height="350" alt="Main image">
                 <div class="card-body">
                     <div class="d-flex justify-content-center gap-2">
-                        <?php foreach($products['list_images'] as $i): ?>
-                        <img src="<?php echo $i['image_url']; ?>" class="img-thumbnail" width="150" height="150" alt="Ảnh phụ">
+                        <?php foreach ($products['list_images'] as $i): ?>
+                            <img src="<?php echo $i['image_url']; ?>" class="img-thumbnail" width="150" height="150" alt="Ảnh phụ">
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -25,38 +25,51 @@
                 <h4 class="text-danger mb-3">
                     Giá: <span id="price"><?php echo number_format($products['price'], 0, ',', '.'); ?> vnđ</span>
                 </h4>
+                <form action="index.php?page=cart" method="post">
 
-                <!-- Màu sắc -->
-                <div class="mb-3">
-                    <h6 class="fw-bold">Màu sắc:</h6>
-                    <div class="d-flex gap-2">
-                        <?php foreach($products['colors'] as $c): ?>
-                        <button class="btn btn-outline-dark btn-sm"><?php echo $c; ?></button>
-                        <?php endforeach; ?>
+                    <!-- Màu & Size -->
+                    <div class="mb-4 border">
+
+                        <?php if (!empty($products['colorGroups'])): ?>
+                            <?php foreach ($products['colorGroups'] as $color => $sizes): ?>
+                                    <!-- Hiển thị tên màu -->
+                                    <label class="fw-bold text-dark d-block mb-2">
+                                        Màu: <?php echo $color; ?>
+                                    </label>
+
+                                    <!-- Danh sách size tương ứng -->
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <?php foreach ($sizes as $s): ?>
+                                            <label class="btn btn-outline-primary btn-sm d-flex align-items-center">
+                                                <input type="radio" name="add_cart" value="<?php echo $s['variant_id']; ?>" class="me-2" required>
+                                                Size <?php echo $s['size']; ?>
+                                                (<?php echo $s['stock']; ?>)
+                                            </label>
+                                        <?php endforeach; ?>
+                                    </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="text-muted">Chưa có màu/size cho sản phẩm này.</p>
+                        <?php endif; ?>
                     </div>
-                </div>
 
-                <!-- Kích thước -->
-                <div class="mb-3">
-                    <h6 class="fw-bold">Kích thước:</h6>
-                    <div class="d-flex gap-2">
-                        <?php foreach($products['sizes'] as $s): ?>
-                        <button class="btn btn-outline-primary btn-sm"><?php echo $s; ?></button>
-                        <?php endforeach; ?>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Số lượng:</label>
+                        <input type="number" name="quantity" class="form-control" min="1" max="<?php echo $products['stock']; ?>" value="1" required style="max-width: 60px;">
                     </div>
-                </div>
 
-                <!-- Tồn kho -->
-                <p class="mt-3">
+                    <!-- Tồn kho -->
+                    <p class="mt-3">
+                        <strong>Tồn kho:</strong> <span id="stock"><?php echo $products['stock']; ?></span> sản phẩm
+                    </p>
 
-                    <strong>Tồn kho:</strong> <span id="stock"><?php echo $products['stock']; ?></span> sản phẩm
-                </p>
+                    <!-- Nút mua -->
+                    <div class="mt-4 d-flex gap-2">
+                        <button class="btn btn-success flex-fill">Thêm vào giỏ</button>
+                        <button class="btn btn-danger flex-fill">Mua ngay</button>
+                    </div>
 
-                <!-- Nút mua -->
-                <div class="mt-4 d-flex gap-2">
-                    <button class="btn btn-success flex-fill">Thêm vào giỏ</button>
-                    <button class="btn btn-danger flex-fill">Mua ngay</button>
-                </div>
+                </form>
             </div>
         </div>
 

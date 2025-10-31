@@ -73,7 +73,8 @@
             </form>
 
             <!-- Cart -->
-            <form class="d-flex">
+            <form class="d-flex" method="get" action="index.php">
+                <input type="hidden" name="page" value="cart">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi bi-cart-fill me-1"></i>
                     Cart

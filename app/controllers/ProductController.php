@@ -50,6 +50,10 @@ class ProductController extends Controller
         $colors = [];
         $sizes = [];
         $totalStock = 0;
+        $vid = null;
+
+        $colorGroups = [];
+        $sizeGroups  = [];
 
         foreach ($variants as $v) {
             if (!in_array($v['color'], $colors)) {
@@ -58,12 +62,27 @@ class ProductController extends Controller
             if (!in_array($v['size'], $sizes)) {
                 $sizes[] = $v['size'];
             }
+            $vid = $v['id'];
             $totalStock += $v['stock'];
+
+            $colorGroups[$v['color']][] = [
+                'size' => $v['size'],
+                'stock' => $v['stock'],
+                'variant_id' => $v['id']
+            ];
+            $sizeGroups[$v['size']][] = [
+                'color' => $v['color'],
+                'stock' => $v['stock'],
+                'variant_id' => $v['id']
+            ];
         }
 
         $products['colors'] = $colors;
         $products['sizes'] = $sizes;
         $products['stock'] = $totalStock;
+        $products['vid'] = $vid;
+        $products['colorGroups'] = $colorGroups;
+        $products['sizeGroups']  = $sizeGroups;
 
         $this->view('home/product_details', ['products' => $products]);
     }
