@@ -4,10 +4,12 @@ require_once __DIR__ . "/../../app/core/Session.php";
 require_once __DIR__ . "/../../app/controllers/CategoryController.php";
 require_once __DIR__ . "/../../app/controllers/ProductController.php";
 require_once __DIR__ . "/../../app/controllers/UserController.php";
+require_once __DIR__ . "/../../app/controllers/OrderController.php";
 Session::checkAdminLogin();
 $cateC = new CategoryController();
 $productC = new ProductController();
 $userC = new UserController();
+$orderC = new OrderController();
 $adminpage = $_GET["page"] ?? "index";
 
 // Nhận post 
@@ -70,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['page'])) {
                         $productC->edit();
                         break;
                     case 'orders':
-                        include_once __DIR__ . "/../../app/views/admin/orders.php";
+                        $orderC->list();
                         break;
                     case 'users':
                         $userC->list();

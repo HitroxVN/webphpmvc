@@ -4,7 +4,7 @@
       <h4 class="mb-0">Sửa người dùng</h4>
     </div>
     <div class="card-body">
-      <?php $p = $user[0]; ?>
+      <?php $p = $user; ?>
       <form method="post">
         <input type="hidden" name="edit_id" value="<?php echo $p['id']; ?>">
 

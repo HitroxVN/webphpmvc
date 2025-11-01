@@ -11,16 +11,18 @@
             </tr>
         </thead>
         <tbody>
+            <?php foreach($order as $o): ?>
             <tr>
-                <td>ORD001</td>
+                <td><?php echo $o['id'];?></td>
                 <td>Nguyễn Văn A</td>
-                <td>100$</td>
-                <td>Đang xử lý</td>
+                <td><?php echo number_format($o['total_amount'], 0, ',', '.'); ?> vnđ</td>
+                <td><?php echo $o['status'];?></td>
                 <td>
                     <button class="btn btn-success btn-sm me-1">Xác nhận</button>
                     <button class="btn btn-danger btn-sm">Hủy</button>
                 </td>
             </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </section>

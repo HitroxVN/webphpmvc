@@ -46,8 +46,7 @@ class CartController extends Controller
 
                 if ($qty <= $maxStock) {
                     $this->cart->add($uid, $vid, $qty);
-                    header("Location: " . $_SERVER['HTTP_REFERER']);
-                    exit;
+                    $this->redirect("index.php?page=cart");
                 } else {
                     echo '<script>
                         alert("Vượt quá số lượng tồn kho của sản phẩm");

@@ -102,8 +102,9 @@
                     <strong>Tổng thanh toán:</strong>
                     <strong class="text-primary"><?php echo number_format($tong, 0, ',', '.'); ?> vnđ</strong>
                 </div>
-                <div class="mt-4 text-end">
-                    <a href="#" class="btn btn-success btn-lg">Thanh toán ngay</a>
+                <div class="mt-4 d-flex justify-content-between">
+                    <a href="index.php?page=products" class="btn btn-danger btn-lg">Tiếp tục mua sắm</a>
+                    <a href="index.php?page=checkout" class="btn btn-success btn-lg">Thanh toán ngay</a>
                 </div>
             </div>
         </div>

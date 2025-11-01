@@ -75,7 +75,7 @@ class User
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $p = $result->fetch_all(MYSQLI_ASSOC);
+        $p = $result->fetch_assoc();
         $stmt->close();
         return $p;
     }

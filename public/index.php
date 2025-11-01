@@ -6,11 +6,13 @@ require_once __DIR__ . "/../app/controllers/ProductController.php";
 require_once __DIR__ . "/../app/controllers/AuthController.php";
 require_once __DIR__ . "/../app/controllers/UserController.php";
 require_once __DIR__ . "/../app/controllers/CartController.php";
+require_once __DIR__ . "/../app/controllers/CheckoutController.php";
 $cateC = new CategoryController();
 $productC = new ProductController();
 $authC = new AuthController();
 $userC = new UserController();
 $cartC = new CartController();
+$checkoutC = new CheckoutController();
 $main = $_GET['page'] ?? 'home';
 ?>
 <!doctype html>
@@ -64,6 +66,9 @@ $main = $_GET['page'] ?? 'home';
                 break;
             case 'logout':
                 $authC->logout();
+                break;
+            case 'checkout':
+                $checkoutC->list();
                 break;
             default:
                 $productC->home();
