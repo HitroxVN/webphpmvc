@@ -44,6 +44,7 @@
                         <ul class="dropdown-menu" aria-labelledby="shopDropdown">
                             <!-- sửa thông tin cá nhân -->
                             <li><a class="dropdown-item" href="index.php?page=profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="index.php?page=orders">Đơn hàng</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

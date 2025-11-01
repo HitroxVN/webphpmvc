@@ -7,12 +7,14 @@ require_once __DIR__ . "/../app/controllers/AuthController.php";
 require_once __DIR__ . "/../app/controllers/UserController.php";
 require_once __DIR__ . "/../app/controllers/CartController.php";
 require_once __DIR__ . "/../app/controllers/CheckoutController.php";
+require_once __DIR__ . "/../app/controllers/OrderController.php";
 $cateC = new CategoryController();
 $productC = new ProductController();
 $authC = new AuthController();
 $userC = new UserController();
 $cartC = new CartController();
 $checkoutC = new CheckoutController();
+$orderC = new OrderController();
 $main = $_GET['page'] ?? 'home';
 ?>
 <!doctype html>
@@ -69,6 +71,17 @@ $main = $_GET['page'] ?? 'home';
                 break;
             case 'checkout':
                 $checkoutC->list();
+                break;
+            case 'success-order':
+                include_once __DIR__ . "/../app/views/home/success_order.php";
+                break;
+            case 'orders':
+                if(isset($_GET['id'])){
+                    $id = $_GET['id'];
+                    $orderC->detailsId($id);
+                } else {
+                    $orderC->listUser();
+                }
                 break;
             default:
                 $productC->home();

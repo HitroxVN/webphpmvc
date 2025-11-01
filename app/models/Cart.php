@@ -51,6 +51,16 @@ class Cart
         return $rs;
     }
 
+    // xoá giỏ hàng khi đặt
+    public function deleteByUser($uid) {
+        $sql = "DELETE FROM {$this->table} WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $uid);
+        $rs = $stmt->execute();
+        $stmt->close();
+        return $rs;
+    }
+
     // thêm vào giỏ hàng
     public function add($uid, $vid, $q){
         $sql = "INSERT INTO {$this->table} (user_id, variant_id, quantity) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)";

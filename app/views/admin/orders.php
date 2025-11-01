@@ -14,7 +14,7 @@
             <?php foreach($order as $o): ?>
             <tr>
                 <td><?php echo $o['id'];?></td>
-                <td>Nguyễn Văn A</td>
+                <td><?php echo $user['full_name'] ?></td>
                 <td><?php echo number_format($o['total_amount'], 0, ',', '.'); ?> vnđ</td>
                 <td><?php echo $o['status'];?></td>
                 <td>
