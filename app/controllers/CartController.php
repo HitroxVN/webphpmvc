@@ -39,10 +39,8 @@ class CartController extends Controller
                 $qty = max(1, ($_POST['quantity'] ?? 1));
                 $uid = $_SESSION['user']['id'];
                 $variant = $this->variant->getById($vid);
-                // var_dump($variant);
-                // echo $variant[0]['stock'];
 
-                $maxStock = $variant[0]['stock'];
+                $maxStock = $variant['stock'];
 
                 if ($qty <= $maxStock) {
                     $this->cart->add($uid, $vid, $qty);

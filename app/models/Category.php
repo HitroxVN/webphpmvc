@@ -36,6 +36,18 @@ class Category {
         return $category;
     }
 
+    // lấy theo tên
+    public function getByName($name) {
+        $sql = "select * from {$this->table} where name = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $category = $result->fetch_assoc();
+        $stmt->close();
+        return $category;
+    }
+
     // thêm danh mục mới
     public function create($name) {
         $sql = "INSERT INTO {$this->table} (name) VALUES (?)";

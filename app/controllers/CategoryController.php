@@ -28,7 +28,15 @@ class CategoryController extends Controller {
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['add_name'])) {
             $name = strtolower($_POST['add_name']);
-            $this->model->create(trim($name));
+            $check = $this->model->getByName($name);
+            
+            if($check && $check['status'] !== 'deleted'){
+                return;
+            } elseif ($check && $check['status'] === 'deleted') {
+                $this->model->update($check['id'], $name, 'active');
+            } else {
+                $this->model->create(trim($name));
+            }
             $this->redirect('index.php?page=categorys');
         }
     }
