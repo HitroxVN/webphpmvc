@@ -58,4 +58,14 @@ class Order
         return $oid;
     }
 
+    // caaph nhập trạng thái đơn hàng
+    public function updateStatus($status, $oid){
+        $sql = "UPDATE {$this->table} SET `status` = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si", $status, $oid);
+        $rs = $stmt->execute();
+        $stmt->close();
+        return $rs;
+    }
+
 }

@@ -42,12 +42,13 @@ class Product
     }
 
     // Thêm sản phẩm mới
-    public function create($category_id, $name, $description, $price)
+    public function create($category_id, $name, $description, $price, $status = 'active')
     {
-        $sql = "INSERT INTO {$this->tableProduct} (category_id, name, description, price) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO {$this->tableProduct} (category_id, name, description, price, status) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("issd", $category_id, $name, $description, $price);
-        $rs = $stmt->execute();
+        $stmt->bind_param("issds", $category_id, $name, $description, $price, $status);
+        $stmt->execute();
+        $rs = $this->conn->insert_id; // trả về id auto
         $stmt->close();
         return $rs;
     }

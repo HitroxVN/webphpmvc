@@ -114,7 +114,61 @@ class ProductController extends Controller
     {
         $categorys = $this->categoty->getAllHome();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->product->create($_POST['category_id'], $_POST['name'], $_POST['description'], $_POST['price']);
+            // tạo sản phẩm
+            $product_id = $this->product->create($_POST['category_id'], $_POST['name'], $_POST['description'], $_POST['price'], $_POST['status']);
+
+            // xử lý upload
+            $upload_dir = __DIR__ . "/../../public/uploads/";
+            if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+            $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+
+            // ảnh chính
+            if (!empty($_FILES['main_image']['name'])) {
+                $main_name = $_FILES['main_image']['name'];
+                $main_tmp = $_FILES['main_image']['tmp_name'];
+                $main_ext = strtolower(pathinfo($main_name, PATHINFO_EXTENSION));
+
+                if (in_array($main_ext, $allowed)) {
+                    $main_file = uniqid('main_', true) . "." . $main_ext;
+                    $target_file = $upload_dir . $main_file;
+
+                    if (move_uploaded_file($main_tmp, $target_file)) {
+                        // lưu vào db, đặt làm ảnh chính 1
+                        $this->image->create($product_id, "uploads/" . $main_file, 1);
+                    }
+                }
+            }
+
+            //ảnh phụ
+            if (!empty($_FILES['images']['name'][0])) {
+                foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+                    $original_name = $_FILES['images']['name'][$key];
+                    $file_ext = strtolower(pathinfo($original_name, PATHINFO_EXTENSION));
+
+                    if (!in_array($file_ext, $allowed)) continue;
+
+                    $file_name = uniqid('img_', true) . "." . $file_ext;
+                    $target_file = $upload_dir . $file_name;
+
+                    if (move_uploaded_file($tmp_name, $target_file)) {
+                        $this->image->create($product_id, "uploads/" . $file_name, 0);
+                    }
+                }
+            }
+
+            // thuộc tính sản phẩm
+            if (!empty($_POST['variant_color'])) {
+                foreach ($_POST['variant_color'] as $i => $color) {
+                    $size = $_POST['variant_size'][$i] ?? '';
+                    $stock = $_POST['variant_stock'][$i] ?? 0;
+
+                    if (empty($color) && empty($size) && empty($stock)) continue;
+
+                    $this->variant->create($product_id, $color, $size, $stock);
+                }
+            }
+
+
             $this->redirect('index.php?page=products');
         } else {
             $this->view('admin/product_add', ['categorys' => $categorys]);

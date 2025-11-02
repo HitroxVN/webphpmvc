@@ -13,14 +13,25 @@
         <tbody>
             <?php foreach($order as $o): ?>
             <tr>
-                <td><?php echo $o['id'];?></td>
-                <td><?php echo $user['full_name'] ?></td>
+                <form method="post">
+                <td><input type="hidden" name="order_id" value="<?= $o['id']; ?>"><?php echo $o['id'];?></td>
+                <td><?php echo $o['full_name'] ?></td>
                 <td><?php echo number_format($o['total_amount'], 0, ',', '.'); ?> vnđ</td>
-                <td><?php echo $o['status'];?></td>
                 <td>
-                    <button class="btn btn-success btn-sm me-1">Xác nhận</button>
-                    <button class="btn btn-danger btn-sm">Hủy</button>
+                    <select name="status_update" class="form-select form-select-sm">
+                        <option value="pending" <?php echo $o['status'] == 'pending' ? 'selected':'' ?>>Chờ xác nhận</option>
+                        <option value="confirmed" <?php echo $o['status'] == 'confirmed' ? 'selected':'' ?>>Đã xác nhận</option>
+                        <option value="shipped" <?php echo $o['status'] == 'shipped' ? 'selected':'' ?>>Đã giao hàng</option>
+                        <option value="shipping" <?php echo $o['status'] == 'shipping' ? 'selected':'' ?>>Đang giao hàng</option>
+                        <option value="delivered" <?php echo $o['status'] == 'delivered' ? 'selected':'' ?>>Đã nhận hàng</option>
+                        <option value="cancelled" <?php echo $o['status'] == 'cancelled' ? 'selected':'' ?>>Đã huỷ đơn</option>
+                    </select>
                 </td>
+                <td>
+                        <button class="btn btn-success btn-sm me-1" type="submit">Xác nhận</button>
+                        <a class="btn btn-warning btn-sm" href="index.php?page=orders&id=<?php echo $o['id'];?>">Chi tiết</a>
+                </td>
+                </form>
             </tr>
             <?php endforeach; ?>
         </tbody>

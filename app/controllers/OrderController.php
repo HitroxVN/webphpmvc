@@ -22,10 +22,34 @@ class OrderController extends Controller {
     // view for admin
     public function list(){
         $orders = $this->order->getAll();
-        // $users = $this->user->getById($orders['user_id']);
+        foreach($orders as &$o){
+            $u = $this->user->getById($o['user_id']);
+            $o['full_name'] = $u['full_name'];
+        }
+
+        // update trạng thái
+        if($_SERVER['REQUEST_METHOD'] ===  'POST' && !empty($_POST['status_update']) && !empty($_POST['order_id'])){
+            $status = $_POST['status_update'];
+            $oid = $_POST['order_id'];
+            $this->order->updateStatus($status, $oid);
+            $this->redirect('index.php?page=orders');
+        }
+
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $orders = $this->order->getById($id);
+            $user = $this->user->getById($orders['user_id']);
+            $order_items = $this->order_item->getByOrderId($id);
+
+            $this->view('admin/order_details', [
+                'order' => $orders,
+                'user' => $user,
+                'o_items' => $order_items
+            ]);
+            return;
+            }
         $this->view('admin/orders', [
             'order' => $orders
-            // 'user' => $users
         ]);
     }
 
