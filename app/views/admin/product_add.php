@@ -60,9 +60,9 @@
           <div id="variant-container">
               <div class="row g-2 mb-2 align-items-center">
                 <input type="hidden" name="variant_id[]" value="<?= $v['id'] ?>">
-                <div class="col-md-3"><input type="text" class="form-control" name="variant_color[]" placeholder="Màu sắc"></div>
-                <div class="col-md-3"><input type="text" class="form-control" name="variant_size[]" placeholder="Size"></div>
-                <div class="col-md-3"><input type="number" class="form-control" name="variant_stock[]" placeholder="Tồn kho"></div>
+                <div class="col-md-3"><input type="text" class="form-control" name="variant_color[]" placeholder="Màu sắc" required></div>
+                <div class="col-md-3"><input type="text" class="form-control" name="variant_size[]" placeholder="Size" required></div>
+                <div class="col-md-3"><input type="number" class="form-control" name="variant_stock[]" placeholder="Tồn kho" required></div>
               </div>
           </div>
           <button type="button" id="add-variant" class="btn btn-outline-secondary btn-sm mt-2">+ Thêm thuộc tính</button>

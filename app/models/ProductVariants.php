@@ -29,6 +29,16 @@ class ProductVariant {
         return $data;
     }
 
+    public function getByColorSize($product_id, $color, $size) {
+        $sql = "SELECT * FROM {$this->table} WHERE product_id = ? AND color = ? AND size = ? LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iss", $product_id, $color, $size);
+        $stmt->execute();
+        $rs = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $rs;
+}
+
     // lấy theo id
     public function getById($id) {
         $sql = "SELECT * FROM {$this->table} WHERE id = ?";

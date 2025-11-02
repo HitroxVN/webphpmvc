@@ -161,10 +161,18 @@ class ProductController extends Controller
                 foreach ($_POST['variant_color'] as $i => $color) {
                     $size = $_POST['variant_size'][$i] ?? '';
                     $stock = $_POST['variant_stock'][$i] ?? 0;
+                    $color = strtolower($color);
 
                     if (empty($color) && empty($size) && empty($stock)) continue;
 
-                    $this->variant->create($product_id, $color, $size, $stock);
+                    // fix dupliace màu, size
+                    $dup = $this->variant->getByColorSize($product_id, $color, $size);
+                    if($dup){
+                        $new = $dup['stock'] + $stock;
+                        $this->variant->update($color, $size, $new, $dup['id']);
+                    } else {
+                        $this->variant->create($product_id, $color, $size, $stock);
+                    }
                 }
             }
 
@@ -258,13 +266,21 @@ class ProductController extends Controller
                     $size = $_POST['variant_size'][$i];
                     $stock = $_POST['variant_stock'][$i];
                     $variant_id = $_POST['variant_id'][$i];
+                    $color = strtolower($color);
 
                     if ($variant_id) {
                         // Cập nhật thuoocj tính có sẵn
                         $this->variant->update($color, $size, $stock, $variant_id);
                     } else {
-                        // Thêm thuộc tính mới
-                        $this->variant->create($product_id, $color, $size, $stock);
+                        // fix dupliace màu, size
+                        $dup = $this->variant->getByColorSize($product_id, $color, $size);
+                        if($dup){
+                            $new = $dup['stock'] + $stock;
+                            $this->variant->update($color, $size, $new, $dup['id']);
+                        } else {
+                            // Thêm thuộc tính mới
+                            $this->variant->create($product_id, $color, $size, $stock);
+                        }
                     }
                 }
             }

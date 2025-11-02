@@ -30,20 +30,19 @@
                     <!-- Màu & Size -->
                     <div class="mb-4 border">
 
-                        <?php if (!empty($products['colorGroups'])): ?>
-                            <?php foreach ($products['colorGroups'] as $color => $sizes): ?>
-                                    <!-- Hiển thị tên màu -->
+                        <?php if (!empty($products['sizeGroups'])): ?>
+                            <?php foreach ($products['sizeGroups'] as $size => $colors): ?>
+                                    <!-- Hiển thị size -->
                                     <label class="fw-bold text-dark d-block mb-2">
-                                        Màu: <?php echo $color; ?>
+                                        Size: <?php echo $size; ?>
                                     </label>
-
-                                    <!-- Danh sách size tương ứng -->
+                                    <!-- Danh sách màu tương ứng -->
                                     <div class="d-flex flex-wrap gap-2">
-                                        <?php foreach ($sizes as $s): ?>
+                                        <?php foreach ($colors as $c): ?>
                                             <label class="btn btn-outline-primary btn-sm d-flex align-items-center">
-                                                <input type="radio" name="add_cart" value="<?php echo $s['variant_id']; ?>" class="me-2" required>
-                                                Size <?php echo $s['size']; ?>
-                                                (<?php echo $s['stock']; ?>)
+                                                <input type="radio" name="add_cart" value="<?php echo $c['variant_id']; ?>" class="me-2" required>
+                                                Màu <?php echo $c['color']; ?>
+                                                (<?php echo $c['stock']; ?>)
                                             </label>
                                         <?php endforeach; ?>
                                     </div>
