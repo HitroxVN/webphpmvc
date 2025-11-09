@@ -1,5 +1,9 @@
 <section id="products" class="mt-5">
     <h2 class="mb-3">Quản lý Sản phẩm</h2>
+    <?php if(!empty($thongbao)): ?>
+        <?php echo $thongbao ?>
+    <?php endif; ?>
+    <br>
     <a href="index.php?page=products_add" class="btn btn-primary mb-3">Thêm sản phẩm mới</a>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
@@ -18,7 +22,7 @@
                 <?php foreach ($products as $p): ?>
                     <tr>
                         <td><?php echo $p['id']; ?></td>
-                        <td><?php echo $p['category_name']; ?></td>
+                        <td><?php echo $p['category_name'] ? $p['category_name'] : 'DANH MỤC BỊ XOÁ'; ?></td>
                         <td><?php echo $p['name']; ?></td>
                         <td><?php echo $p['description']; ?></td>
                         <td><?php echo number_format($p['price'], 0, ',', '.'); ?>₫</td>

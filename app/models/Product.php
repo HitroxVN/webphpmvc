@@ -14,13 +14,27 @@ class Product
         $this->conn = $connect;
     }
 
-    // Lấy danh sách sản phẩm
+    // Lấy danh sách sản phẩm admin
     public function getAll()
     {
         $sql = "SELECT p.*, c.name as category_name 
             FROM {$this->tableProduct} p 
+            LEFT JOIN {$this->tableCategory} c ON p.category_id = c.id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rs = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $rs;
+    }
+
+    // lấy danh sách về trang home
+    public function getAllHome()
+    {
+        $sql = "SELECT p.*, c.name as category_name 
+            FROM {$this->tableProduct} p 
             LEFT JOIN {$this->tableCategory} c ON p.category_id = c.id 
-            WHERE p.status != 'deleted'";
+            WHERE p.status = 'active'";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -33,7 +47,8 @@ class Product
     // Xóa sản phẩm
     public function delete($id)
     {
-        $sql = "UPDATE {$this->tableProduct} SET status='deleted' WHERE id=?";
+        // $sql = "UPDATE {$this->tableProduct} SET status='deleted' WHERE id=?";
+        $sql = "DELETE FROM {$this->tableProduct} WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $rs = $stmt->execute();
@@ -97,7 +112,7 @@ class Product
         $sql = "SELECT p.*, c.name AS category_name 
             FROM {$this->tableProduct} p 
             LEFT JOIN {$this->tableCategory} c ON p.category_id = c.id 
-            WHERE p.status != 'deleted' 
+            WHERE p.status = 'active' 
             ORDER BY p.created_at DESC 
             LIMIT 4";
 

@@ -1,5 +1,8 @@
 <section id="orders" class="mt-5">
     <h2 class="mb-3">Quản lý Đơn hàng</h2>
+    <?php if(!empty($thongbao)): ?>
+        <?php echo $thongbao ?>
+    <?php endif; ?>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>

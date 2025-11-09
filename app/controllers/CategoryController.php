@@ -15,7 +15,12 @@ class CategoryController extends Controller {
     // load danh mục về trang admin
     public function list(){
         $cate = $this->model->getAll();
-        $this->view('admin/categorys', ['categorys' => $cate]);
+        $thongbao = $_SESSION['thongbao'] ?? null;
+        unset($_SESSION['thongbao']);
+        $this->view('admin/categorys', [
+            'categorys' => $cate,
+            'thongbao' => $thongbao
+        ]);
     }
 
     // về trang home
@@ -28,14 +33,11 @@ class CategoryController extends Controller {
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['add_name'])) {
             $name = strtolower($_POST['add_name']);
-            $check = $this->model->getByName($name);
-            
-            if($check && $check['status'] !== 'deleted'){
-                return;
-            } elseif ($check && $check['status'] === 'deleted') {
-                $this->model->update($check['id'], $name, 'active');
+            if($this->model->getByName($name)){
+                $_SESSION['thongbao'] = "Danh mục này đã tồn tại";
             } else {
                 $this->model->create(trim($name));
+                $_SESSION['thongbao'] = "Thêm danh mục thành công";
             }
             $this->redirect('index.php?page=categorys');
         }
@@ -47,7 +49,13 @@ class CategoryController extends Controller {
             $id = $_POST['id'];
             $name = strtolower($_POST['name']);
             $status = $_POST['status'];
-            $this->model->update($id, trim($name), $status);
+            $check = $this->model->getByName($name);
+            if($check && $check['id'] != $id) {
+                $_SESSION['thongbao'] = "Tên danh mục này đã tồn tại";
+            } else {
+                $this->model->update($id, trim($name), $status);
+                $_SESSION['thongbao'] = "Cập nhập danh mục thành công";
+            }
             $this->redirect('index.php?page=categorys');
         }
     }
@@ -56,6 +64,7 @@ class CategoryController extends Controller {
     public function delete() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['id'])) {
             $this->model->delete($_POST['id']);
+            $_SESSION['thongbao'] = "Xoá danh mục thành công";
             $this->redirect('index.php?page=categorys');
         }
     }

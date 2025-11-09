@@ -26,13 +26,18 @@ class ProductController extends Controller
     public function list()
     {
         $products = $this->product->getAll();
-        $this->view('admin/products', ['products' => $products]);
+        $thongbao = $_SESSION['thongbao'] ?? null;
+        unset($_SESSION['thongbao']);
+        $this->view('admin/products', [
+            'products' => $products,
+            'thongbao' => $thongbao
+        ]);
     }
 
     // về trang san phẩm
     public function listProduct()
     {
-        $products = $this->product->getAll();
+        $products = $this->product->getAllHome();
         foreach ($products as &$p) {
             $p['main_image'] = $this->image->getPrimaryImage($p['id']);
         }
@@ -176,7 +181,7 @@ class ProductController extends Controller
                 }
             }
 
-
+            $_SESSION['thongbao'] = "Thêm sản phẩm thành công";
             $this->redirect('index.php?page=products');
         } else {
             $this->view('admin/product_add', ['categorys' => $categorys]);
@@ -188,6 +193,7 @@ class ProductController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['delete_id'])) {
             $this->product->delete($_POST['delete_id']);
+            $_SESSION['thongbao'] = "Xoá sản phẩm thành công";
             $this->redirect('index.php?page=products');
         }
     }
@@ -291,7 +297,7 @@ class ProductController extends Controller
                     $this->variant->delete($v_id);
                 }
             }
-
+            $_SESSION['thongbao'] = "Cập nhập sản phẩm thành công";
             $this->redirect('index.php?page=products');
             return;
         }

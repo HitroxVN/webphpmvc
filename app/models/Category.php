@@ -16,7 +16,7 @@ class Category {
 
     // lấy tất cả danh mục active và hide
     public function getAll() {
-        $sql = "select * from {$this->table} where status != 'deleted'";
+        $sql = "select * from {$this->table}";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -38,7 +38,7 @@ class Category {
 
     // lấy theo tên
     public function getByName($name) {
-        $sql = "select * from {$this->table} where name = ?";
+        $sql = "select id, name from {$this->table} where name = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $name);
         $stmt->execute();
@@ -70,8 +70,8 @@ class Category {
 
     // Xóa danh mục
     public function delete($id) {
-        // $sql1 = "DELETE FROM {$this->table} WHERE id = ?";
-        $sql = "update {$this->table} set status = 'deleted' where id = ?";
+        $sql = "DELETE FROM {$this->table} WHERE id = ?";
+        // $sql = "update {$this->table} set status = 'deleted' where id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $category = $stmt->execute();

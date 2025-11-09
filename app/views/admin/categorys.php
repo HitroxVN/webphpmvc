@@ -1,6 +1,10 @@
 <section id="categorys" class="mt-5">
     <h2 class="mb-3">Quản lý Danh mục</h2>
 
+    <?php if(!empty($thongbao)): ?>
+        <?php echo $thongbao ?>
+    <?php endif; ?>
+
     <!-- Form thêm -->
     <form method="POST" class="mb-3 d-flex gap-2">
         <input type="text" name="add_name" class="form-control w-25" placeholder="Nhập tên danh mục mới" required>

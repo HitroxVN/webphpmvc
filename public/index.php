@@ -38,11 +38,10 @@ $main = $_GET['page'] ?? 'home';
                 if(Session::checkLogin()){
                     $userC->showInfo();
                 } else {
-                    $productC->home();
+                    $authC->login();
                 }
                 break;
             case 'category':
-                // echo "category page";
                 if(isset($_GET['id'])){
                     $cid = $_GET['id'];
                     $productC->listProductByCate($cid);
@@ -55,33 +54,52 @@ $main = $_GET['page'] ?? 'home';
                 } else {
                     $productC->listProduct();
                 }
-                
                 break;
             case 'cart':
-                $cartC->listCart($_SESSION['user']['id']);
+                if(Session::checkLogin()){
+                    $cartC->listCart($_SESSION['user']['id']);
+                } else {
+                    $authC->login();
+                }
                 break;
             case 'register':
-                $authC->register();
+                if(Session::checkLogin()){
+                    $productC->home();
+                } else {
+                    $authC->register();
+                }
                 break;
             case 'login':
-                $authC->login();
+                if(Session::checkLogin()){
+                    $productC->home();
+                } else {
+                    $authC->login();
+                }
                 break;
             case 'logout':
                 $authC->logout();
                 break;
             case 'checkout':
-                $checkoutC->list();
+                if(Session::checkLogin()){
+                    $checkoutC->list();
+                } else {
+                    $authC->login();
+                }
                 break;
             case 'success-order':
                 include_once __DIR__ . "/../app/views/home/success_order.php";
                 break;
             case 'orders':
+                if(Session::checkLogin()){
                 if(isset($_GET['id'])){
                     $id = $_GET['id'];
                     $orderC->detailsId($id);
                 } else {
                     $orderC->listUser();
                 }
+            } else {
+                $authC->login();
+            }
                 break;
             default:
                 $productC->home();

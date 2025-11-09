@@ -5,6 +5,7 @@ class Order
 {
     private $conn;
     private $table = 'orders';
+    private $tableUser = 'users';
 
     public function __construct()
     {
@@ -38,7 +39,7 @@ class Order
 
     // lấy tất cả đơn hàng
     public function getAll(){
-        $sql = "SELECT * FROM {$this->table}";
+        $sql = "SELECT o.*, u.full_name as full_name FROM {$this->table} o LEFT JOIN {$this->tableUser} u ON o.user_id = u.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $rs = $stmt->get_result();

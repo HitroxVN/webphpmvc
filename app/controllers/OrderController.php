@@ -22,16 +22,15 @@ class OrderController extends Controller {
     // view for admin
     public function list(){
         $orders = $this->order->getAll();
-        foreach($orders as &$o){
-            $u = $this->user->getById($o['user_id']);
-            $o['full_name'] = $u['full_name'];
-        }
+        $thongbao = $_SESSION['thongbao'] ?? null;
+        unset($_SESSION['thongbao']);
 
         // update trạng thái
         if($_SERVER['REQUEST_METHOD'] ===  'POST' && !empty($_POST['status_update']) && !empty($_POST['order_id'])){
             $status = $_POST['status_update'];
             $oid = $_POST['order_id'];
             $this->order->updateStatus($status, $oid);
+            $_SESSION['thongbao'] = "Cập nhập đơn hàng thành công";
             $this->redirect('index.php?page=orders');
         }
 
@@ -48,8 +47,10 @@ class OrderController extends Controller {
             ]);
             return;
             }
+
         $this->view('admin/orders', [
-            'order' => $orders
+            'order' => $orders,
+            'thongbao' => $thongbao
         ]);
     }
 

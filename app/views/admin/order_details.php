@@ -42,9 +42,9 @@
       <tbody>
         <?php foreach($o_items as $o): ?>
         <tr>
-          <td><?php echo $o['product_name']; ?></td>
-          <td><?php echo $o['size']; ?></td>
-          <td><?php echo $o['color']; ?></td>
+          <td><?php echo $o['product_name'] ? $o['product_name'] : 'SẢN PHẨM BỊ XOÁ'; ?></td>
+          <td><?php echo $o['size'] ? $o['product_name'] : 'SẢN PHẨM BỊ XOÁ'; ?></td>
+          <td><?php echo $o['color'] ? $o['product_name'] : 'SẢN PHẨM BỊ XOÁ'; ?></td>
           <td><?php echo $o['quantity']; ?></td>
           <td><?php echo number_format($o['price'], 0, ',', '.'); ?> vnđ</td>
           <td><?php echo number_format($o['price'] * $o['quantity'], 0, ',', '.'); $tong+=$o['price'] * $o['quantity'];?> vnđ</td>
