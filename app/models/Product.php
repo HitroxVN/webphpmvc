@@ -123,4 +123,15 @@ class Product
         $stmt->close();
         return $rs;
     }
+
+    public function findProduct($keyword = ''){
+        $sql = "SELECT * FROM products WHERE products.name LIKE ?";
+        $stmt = $this->conn->prepare($sql);
+        $input = "%{$keyword}%";
+        $stmt->bind_param("s", $keyword);
+        $stmt->execute();
+        $rs = $stmt->get_result();
+        $p = $rs->fetch_all(MYSQLI_ASSOC);
+        return $p;
+    }
 }

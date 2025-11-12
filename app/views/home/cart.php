@@ -53,7 +53,7 @@
                                             <i class="bi bi-plus"></i>
                                         </button>
 
-                                        <button type="submit" name="update_cart" value="1" class="btn btn-outline-success" data-bs-toggle="tooltip" title="Cập nhật">
+                                        <button type="submit" name="update_cart" value="<?php echo $c['variant_id']; ?>" class="btn btn-outline-success" data-bs-toggle="tooltip" title="Cập nhật">
                                             <i class="bi bi-repeat"></i>
                                         </button>
                                     </div>

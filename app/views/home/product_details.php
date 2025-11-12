@@ -18,7 +18,7 @@
         <!-- Thông tin sản phẩm -->
         <div class="col-md-6">
             <div class="card shadow-sm p-4">
-                <span class="badge bg-secondary mb-2">Danh mục: <span id="category_name"><?php echo $products['category_name']; ?></span></span>
+                <span class="badge bg-secondary mb-2">Danh mục: <span id="category_name"><?php echo $products['category_name'] ?? 'Không có danh mục'; ?></span></span>
                 <h3 id="name" class="mb-3"><?php echo $products['name']; ?></h3>
                 <p id="description" class="text-muted"><?php echo $products['description']; ?></p>
 

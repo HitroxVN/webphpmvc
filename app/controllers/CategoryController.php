@@ -12,6 +12,20 @@ class CategoryController extends Controller {
         $this->model = new Category();
     }
 
+    public function xulyRequest(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(!empty($_POST['add_name'])){
+                $this->add();
+            } elseif(isset($_POST['capnhap'])){
+                $this->edit();
+            } elseif(isset($_POST['xoa'])){
+                $this->delete();
+            }
+        }
+
+        $this->list();
+    }
+
     // load danh mục về trang admin
     public function list(){
         $cate = $this->model->getAll();
@@ -31,7 +45,6 @@ class CategoryController extends Controller {
 
     // Thêm danh mục
     public function add() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['add_name'])) {
             $name = strtolower($_POST['add_name']);
             if($this->model->getByName($name)){
                 $_SESSION['thongbao'] = "Danh mục này đã tồn tại";
@@ -40,12 +53,10 @@ class CategoryController extends Controller {
                 $_SESSION['thongbao'] = "Thêm danh mục thành công";
             }
             $this->redirect('index.php?page=categorys');
-        }
     }
 
     // sửa danh mục
     public function edit() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $name = strtolower($_POST['name']);
             $status = $_POST['status'];
@@ -57,12 +68,11 @@ class CategoryController extends Controller {
                 $_SESSION['thongbao'] = "Cập nhập danh mục thành công";
             }
             $this->redirect('index.php?page=categorys');
-        }
     }
 
     // xóa danh mục
     public function delete() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['id'])) {
+        if (!empty($_POST['id'])) {
             $this->model->delete($_POST['id']);
             $_SESSION['thongbao'] = "Xoá danh mục thành công";
             $this->redirect('index.php?page=categorys');

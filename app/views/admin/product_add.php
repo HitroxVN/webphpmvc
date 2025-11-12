@@ -69,7 +69,7 @@
         </div>
 
         <!-- Submit -->
-        <button type="submit" class="btn btn-success w-100">Lưu sản phẩm</button>
+        <button type="submit" name="add_sp" class="btn btn-success w-100">Lưu sản phẩm</button>
       </form>
       <a href="index.php?page=products" class="btn btn-danger w-100">Quay lại</a>
     </div>

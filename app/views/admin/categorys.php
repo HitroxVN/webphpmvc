@@ -40,8 +40,8 @@
                                 </select>
                             </td>
                             <td class="d-flex gap-1 justify-content-center">
-                                <button type="submit" name="action" value="save" class="btn btn-success btn-sm">Cập nhật</button>
-                                <button type="submit" name="action" value="delete" class="btn btn-danger btn-sm" onclick="return confirm('Xóa danh mục này?')">Xóa</button>
+                                <button type="submit" name="capnhap" class="btn btn-success btn-sm">Cập nhật</button>
+                                <button type="submit" name="xoa" class="btn btn-danger btn-sm" onclick="return confirm('Xóa danh mục này?')">Xóa</button>
                             </td>
                         </form>
                     </tr>

@@ -57,7 +57,20 @@ class CartController extends Controller
             // cập nhập cart
             if (!empty($_POST['update_cart']) && !empty($_POST['quantity'])) {
                 foreach ($_POST['quantity'] as $cart_id => $qty) {
-                    $this->cart->update($qty, $cart_id);
+                    $variant = $this->variant->getById($_POST['update_cart']);
+                    $maxStock = $variant['stock'];
+
+                    // kiểm tra tồn kho tại giỏ hàng
+                    if($qty <= $maxStock){
+                        $this->cart->update($qty, $cart_id);
+                    } else {
+                        echo '<script>
+                        alert("Vượt quá số lượng tồn kho của sản phẩm");
+                        window.location.href = "' . $_SERVER['HTTP_REFERER'] . '";
+                        </script>';
+                        exit;
+                    }
+                    
                 }
                 $this->redirect('index.php?page=cart');
             }

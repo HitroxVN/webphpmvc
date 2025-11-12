@@ -29,7 +29,7 @@ class Cart
             FROM {$this->table} c
             JOIN product_variants pv ON c.variant_id = pv.id
             JOIN products p ON pv.product_id = p.id
-            JOIN categories cate ON p.category_id = cate.id
+            LEFT JOIN categories cate ON p.category_id = cate.id
             LEFT JOIN product_images pi ON p.id = pi.product_id AND pi.is_primary = 1
             WHERE c.user_id = ?";
         $stmt = $this->conn->prepare($sql);

@@ -22,16 +22,13 @@ class ProductController extends Controller
         $this->variant = new ProductVariant();
     }
 
-    // load danh sách sản phẩ về trang admin
-    public function list()
-    {
-        $products = $this->product->getAll();
-        $thongbao = $_SESSION['thongbao'] ?? null;
-        unset($_SESSION['thongbao']);
-        $this->view('admin/products', [
-            'products' => $products,
-            'thongbao' => $thongbao
-        ]);
+    public function xulyRequest(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if(!empty($_POST['delete_id'])){
+                $this->delete();
+            }
+        }
+        $this->list();
     }
 
     // về trang san phẩm
@@ -92,7 +89,7 @@ class ProductController extends Controller
         $this->view('home/product_details', ['products' => $products]);
     }
 
-    // load theo danh mục
+    // load theo danh mục (lọc sản phẩm theo danh mục)
     public function listProductByCate($cid)
     {
         $product = $this->product->getByCategory($cid);
@@ -114,7 +111,19 @@ class ProductController extends Controller
         ]);
     }
 
-    // thêm sản phẩm
+    // load danh sách sản phẩ về trang admin
+    public function list()
+    {
+        $products = $this->product->getAll();
+        $thongbao = $_SESSION['thongbao'] ?? null;
+        unset($_SESSION['thongbao']);
+        $this->view('admin/products', [
+            'products' => $products,
+            'thongbao' => $thongbao
+        ]);
+    }
+
+    // thêm sản phẩm (admin)
     public function add()
     {
         $categorys = $this->categoty->getAllHome();
@@ -188,7 +197,7 @@ class ProductController extends Controller
         }
     }
 
-    // Xóa sản phẩm
+    // Xóa sản phẩm (admin)
     public function delete()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['delete_id'])) {
@@ -198,7 +207,7 @@ class ProductController extends Controller
         }
     }
 
-    // Sửa sản phẩm
+    // Sửa sản phẩm (admin)
     public function edit()
     {
         $categorys = $this->categoty->getAllHome();
