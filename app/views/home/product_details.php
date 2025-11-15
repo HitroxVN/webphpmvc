@@ -4,11 +4,13 @@
         <!-- Ảnh sản phẩm -->
         <div class="col-md-6">
             <div class="card shadow-sm">
-                <img src="<?php echo $products['main_image']; ?>" class="card-img-top" width="350" height="350" alt="Main image">
+                <div class="img-wrap-main">
+                    <img id="mainImage" src="<?php echo $products['main_image']; ?>" class="card-img-top" alt="Main image" style="cursor: pointer;">
+                </div>
                 <div class="card-body">
-                    <div class="d-flex justify-content-center gap-2">
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
                         <?php foreach ($products['list_images'] as $i): ?>
-                            <img src="<?php echo $i['image_url']; ?>" class="img-thumbnail" width="150" height="150" alt="Ảnh phụ">
+                            <img src="<?php echo $i['image_url']; ?>" class="img-thumbnail thumbnail-img" width="100" height="100" alt="Ảnh phụ" style="cursor: pointer; transition: opacity 0.2s;" data-full-src="<?php echo $i['image_url']; ?>">
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -28,7 +30,7 @@
                 <form action="index.php?page=cart" method="post">
 
                     <!-- Màu & Size -->
-                    <div class="mb-4 border">
+                    <div class="mb-4">
 
                         <?php if (!empty($products['sizeGroups'])): ?>
                             <?php foreach ($products['sizeGroups'] as $size => $colors): ?>
@@ -39,7 +41,7 @@
                                     <!-- Danh sách màu tương ứng -->
                                     <div class="d-flex flex-wrap gap-2">
                                         <?php foreach ($colors as $c): ?>
-                                            <label class="btn btn-outline-primary btn-sm d-flex align-items-center">
+                                            <label class="btn btn-outline-secondary btn-sm d-flex align-items-center">
                                                 <input type="radio" name="add_cart" value="<?php echo $c['variant_id']; ?>" class="me-2" required>
                                                 Màu <?php echo $c['color']; ?>
                                                 (<?php echo $c['stock']; ?>)
@@ -74,3 +76,5 @@
 
     </div>
 </div>
+
+    <?php include_once __DIR__ . '/previewImage.php'; ?>

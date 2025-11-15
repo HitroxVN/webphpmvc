@@ -1,4 +1,4 @@
-<section id="users" class="mt-5">
+<section id="users">
     <h2 class="mb-3">Quản lý Người dùng</h2>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">

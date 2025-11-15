@@ -1,4 +1,4 @@
-<section id="categorys" class="mt-5">
+<section id="categorys">
     <h2 class="mb-3">Quản lý Danh mục</h2>
 
     <?php if(!empty($thongbao)): ?>

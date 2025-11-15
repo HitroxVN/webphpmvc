@@ -1,4 +1,4 @@
-<section class="container mt-5">
+<section class="container">
   <div class="card shadow-sm">
     <div class="card-header bg-primary text-white">
       <h4 class="mb-0">Thêm sản phẩm mới</h4>

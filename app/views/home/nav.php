@@ -16,11 +16,14 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href=".">Trang chủ</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.php?page=products">Sản phẩm</a>
+                </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="#about">About</a>
                 </li> -->
 
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="shopDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Products
@@ -32,7 +35,7 @@
                         </li>
                         <li><a class="dropdown-item" href="#newProducts">Sản phẩm mới nhất</a></li>
                     </ul>
-                </li>
+                </li> -->
 
                 <!-- Login session -->
                 <?php if (isset($_SESSION["user"])): ?>
@@ -60,8 +63,8 @@
 
                 <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
                     <li class="nav-item">
-                    <a class="nav-link" href="admin">Trang quản lý</a>
-                </li>
+                        <a class="nav-link active" href="admin">Trang quản lý</a>
+                    </li>
                 <?php endif; ?>
 
 
@@ -77,11 +80,11 @@
             <!-- Cart -->
             <form class="d-flex" method="get" action="index.php">
                 <input type="hidden" name="page" value="cart">
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </button>
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi bi-cart-fill me-1"></i>
+                        Cart
+                        <!-- <span class="badge bg-dark text-white ms-1 rounded-pill">0</span> -->
+                    </button>
             </form>
         </div>
     </div>

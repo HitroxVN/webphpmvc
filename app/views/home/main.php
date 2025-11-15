@@ -20,14 +20,16 @@
           <?php foreach($newProducts as $p): ?>
             <div class="col-6 col-md-3">
               <div class="card h-100 shadow-sm">
-                <img src="<?=
-                  !empty($p['main_image']) && file_exists($p['main_image'])
-                    ? $p['main_image']
-                    : (file_exists('uploads/no-image.png')
-                      ? 'uploads/no-image.png'
-                      : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
-                    )
-                  ?>" class="card-img-top border border-2 border-secondary" width="200" height="200">
+                <div class="img-wrap">
+                  <img src="<?=
+                    !empty($p['main_image']) && file_exists($p['main_image'])
+                      ? $p['main_image']
+                      : (file_exists('uploads/no-image.png')
+                        ? 'uploads/no-image.png'
+                        : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+                      )
+                    ?>" class="card-img-top" alt="<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>">
+                </div>
                 <div class="card-body text-center">
                   <h5 class="card-title"><?= $p['name']; ?></h5>
                   <p class="card-text text-dark fw-bold"><?= number_format($p['price'], 0, ',', '.'); ?> vnđ</p>

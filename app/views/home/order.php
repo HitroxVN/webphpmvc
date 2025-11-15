@@ -20,7 +20,7 @@
         <td><?php echo $o['total_amount']; ?></td>
         <td><?php echo $o['payment_method']; ?></td>
         <td><?php echo $o['status']; ?></td>
-        <td><a href="index.php?page=orders&id=<?php echo $o['id']; ?>" class="btn btn-sm btn-primary">Xem chi tiết</a></td>
+        <td><a href="index.php?page=orders&id=<?php echo $o['id']; ?>" class="btn btn-sm btn-dark">Xem chi tiết</a></td>
       </tr>
       <?php endforeach; ?>
     </tbody>
