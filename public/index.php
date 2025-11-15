@@ -57,7 +57,7 @@ $main = $_GET['page'] ?? 'home';
                 break;
             case 'cart':
                 if(Session::checkLogin()){
-                    $cartC->listCart($_SESSION['user']['id']);
+                    $cartC->xulyRequest();
                 } else {
                     $authC->login();
                 }
@@ -81,7 +81,7 @@ $main = $_GET['page'] ?? 'home';
                 break;
             case 'checkout':
                 if(Session::checkLogin()){
-                    $checkoutC->list();
+                    $checkoutC->xulyRequest();
                 } else {
                     $authC->login();
                 }

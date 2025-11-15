@@ -11,40 +11,6 @@ class Session
         }
     }
 
-    // getter / setter 
-    public static function get($sess)
-    {
-        Session::start();
-        return $_SESSION[$sess] ?? null;
-    }
-    public static function set($sess, $value)
-    {
-        Session::start();
-        $_SESSION[$sess] = $value;
-    }
-
-    // xoá 1 session
-    public static function remove($sess)
-    {
-        Session::start();
-        if (isset($_SESSION[$sess])) unset($_SESSION[$sess]);
-    }
-
-    // xoá toàn bộ session
-    public static function destroy()
-    {
-        Session::start();
-        session_unset();
-        session_destroy();
-    }
-
-    // lấy session hiện tại
-    public static function getUser()
-    {
-        Session::start();
-        return $_SESSION['user'] ?? null;
-    }
-
     // kiểm tra session login
     public static function checkLogin(): bool
     {

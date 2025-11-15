@@ -54,7 +54,6 @@ class ProductController extends Controller
         $totalStock = 0;
         $vid = null;
 
-        $colorGroups = [];
         $sizeGroups  = [];
 
         foreach ($variants as $v) {
@@ -67,11 +66,6 @@ class ProductController extends Controller
             $vid = $v['id'];
             $totalStock += $v['stock'];
 
-            $colorGroups[$v['color']][] = [
-                'size' => $v['size'],
-                'stock' => $v['stock'],
-                'variant_id' => $v['id']
-            ];
             $sizeGroups[$v['size']][] = [
                 'color' => $v['color'],
                 'stock' => $v['stock'],
@@ -83,7 +77,6 @@ class ProductController extends Controller
         $products['sizes'] = $sizes;
         $products['stock'] = $totalStock;
         $products['vid'] = $vid;
-        $products['colorGroups'] = $colorGroups;
         $products['sizeGroups']  = $sizeGroups;
 
         $this->view('home/product_details', ['products' => $products]);

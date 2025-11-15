@@ -26,7 +26,7 @@
                     Giá: <span id="price"><?php echo number_format($products['price'], 0, ',', '.'); ?> vnđ</span>
                 </h4>
                 <form action="index.php?page=cart" method="post">
-
+                    <input type="hidden" name="product_id" value="<?php echo $products['id']; ?>">
                     <!-- Màu & Size -->
                     <div class="mb-4 border">
 
@@ -64,8 +64,8 @@
 
                     <!-- Nút mua -->
                     <div class="mt-4 d-flex gap-2">
-                        <button class="btn btn-success flex-fill">Thêm vào giỏ</button>
-                        <button class="btn btn-danger flex-fill">Mua ngay</button>
+                        <button class="btn btn-success flex-fill" name="action" value="addcart">Thêm vào giỏ</button>
+                        <button class="btn btn-danger flex-fill" name="action" value="buynow">Mua ngay</button>
                     </div>
 
                 </form>

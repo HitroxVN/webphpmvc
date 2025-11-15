@@ -22,7 +22,7 @@
                 <?php foreach ($products as $p): ?>
                     <tr>
                         <td><?php echo $p['id']; ?></td>
-                        <td><?php echo $p['category_name'] ? $p['category_name'] : 'DANH MỤC BỊ XOÁ'; ?></td>
+                        <td><?php echo $p['category_name'] ?: '<span class="text-danger">DANH MỤC BỊ XOÁ</span>'; ?></td>
                         <td><?php echo $p['name']; ?></td>
                         <td><?php echo $p['description']; ?></td>
                         <td><?php echo number_format($p['price'], 0, ',', '.'); ?>₫</td>
