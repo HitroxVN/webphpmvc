@@ -6,6 +6,11 @@
         <div class="col-md-6">
             <div class="bg-white p-4 rounded shadow-sm">
                 <h5 class="mb-3">Thông tin khách hàng</h5>
+                <?php if(empty($user['full_name']) || empty($user['phone']) || empty($user['address'])): ?>
+                    <div class="alert alert-warning" role="alert">
+                        Vui lòng điền đầy đủ thông tin nhận hàng trước!
+                    </div>
+                <?php endif;?>
                 <form>
                     <div class="mb-3">
                         <label for="fullname" class="form-label">Họ và tên</label>

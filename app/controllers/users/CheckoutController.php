@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . "/../models/User.php";
-require_once __DIR__ . "/../models/Cart.php";
-require_once __DIR__ . "/../models/Order.php";
-require_once __DIR__ . "/../models/Product.php";
-require_once __DIR__ . "/../models/ProductVariants.php";
-require_once __DIR__ . "/../models/OrderItems.php";
-require_once __DIR__ . "/../core/Controller.php";
+require_once __DIR__ . "/../../models/User.php";
+require_once __DIR__ . "/../../models/Cart.php";
+require_once __DIR__ . "/../../models/Order.php";
+require_once __DIR__ . "/../../models/Product.php";
+require_once __DIR__ . "/../../models/ProductVariants.php";
+require_once __DIR__ . "/../../models/OrderItems.php";
+require_once __DIR__ . "/../../core/Controller.php";
 
 class CheckoutController extends Controller
 {
@@ -38,9 +38,8 @@ class CheckoutController extends Controller
     // view
     public function list()
     {
-
+        $users = $_SESSION['user'];
         $uid = $_SESSION['user']['id'];
-        $users = $this->user->getById($uid);
 
         $carts = [];
 
@@ -74,9 +73,10 @@ class CheckoutController extends Controller
             $uid = $_SESSION['user']['id'];
             $address = $_SESSION['user']['address'];
             $phone = $_SESSION['user']['phone'];
+            $name = $_SESSION['user']['full_name'];
 
             // bắt buộc thêm sđt, mail nhận hàng
-            if(empty($address) || empty($phone)){
+            if(empty($address) || empty($phone) || empty($name)){
                 // thêm session thông báo
                 $this->redirect('index.php?page=profile');
                 exit();

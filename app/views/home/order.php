@@ -17,7 +17,7 @@
       <tr>
         <td><?php echo $o['id']; ?></td>
         <td><?php echo $o['created_at']; ?></td>
-        <td><?php echo $o['total_amount']; ?></td>
+        <td><?php echo number_format($o['total_amount'], 0, ',', '.'); ?> vnđ</td>
         <td><?php echo $o['payment_method']; ?></td>
         <td><?php echo $o['status']; ?></td>
         <td><a href="index.php?page=orders&id=<?php echo $o['id']; ?>" class="btn btn-sm btn-primary">Xem chi tiết</a></td>

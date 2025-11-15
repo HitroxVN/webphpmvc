@@ -7,7 +7,7 @@
         </div>
 
         <div class="card-body p-4">
-          <p class="mb-4 text-center">Xin chào, <strong><?= htmlspecialchars($user['full_name']) ?></strong></p>
+          <p class="mb-4 text-center">Xin chào, <strong><?= htmlspecialchars($user['full_name'] ?? 'Khách hàng') ?></strong></p>
 
           <form method="post">
             <input type="hidden" name="id" value="<?php echo $user['id']; ?>">

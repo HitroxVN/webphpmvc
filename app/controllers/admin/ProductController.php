@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . "/../models/Product.php";
-require_once __DIR__ . "/../models/Category.php";
-require_once __DIR__ . "/../models/ProductImage.php";
-require_once __DIR__ . "/../models/ProductVariants.php";
-require_once __DIR__ . "/../core/Controller.php";
+require_once __DIR__ . "/../../models/Product.php";
+require_once __DIR__ . "/../../models/Category.php";
+require_once __DIR__ . "/../../models/ProductImage.php";
+require_once __DIR__ . "/../../models/ProductVariants.php";
+require_once __DIR__ . "/../../core/Controller.php";
 
 // require_once __DIR__ . "";
 
@@ -24,84 +24,25 @@ class ProductController extends Controller
 
     public function xulyRequest(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if(!empty($_POST['delete_id'])){
-                $this->delete();
+            if(isset($_POST['delete_id'])){
+                return $this->delete();
+            }
+            if(isset($_POST['edit_id'])){
+                return $this->edit();
+            }
+            if(isset($_POST['add_sp'])){
+                return $this->add();
+            }
+        } elseif($_SERVER['REQUEST_METHOD'] === 'GET'){
+            $a = $_GET['action'] ?? '';
+            if(!empty($a) && $a === 'add'){
+                return $this->add();
+            }
+            if(!empty($a) && $a === 'edit' && !empty($_GET['id'])){
+                return $this->edit();
             }
         }
         $this->list();
-    }
-
-    // về trang san phẩm
-    public function listProduct()
-    {
-        $products = $this->product->getAllHome();
-        foreach ($products as &$p) {
-            $p['main_image'] = $this->image->getPrimaryImage($p['id']);
-        }
-        $this->view('home/products', ['products' => $products]);
-    }
-
-    // chi tiết sản phaam
-    public function productDetails($id)
-    {
-        $products = $this->product->getById($id);
-        $products['main_image'] = $this->image->getPrimaryImage($products['id']);
-        $products['list_images'] = $this->image->getUrlByProduct($products['id']);
-        $variants = $this->variant->getByProductId($products['id']);
-
-        $colors = [];
-        $sizes = [];
-        $totalStock = 0;
-        $vid = null;
-
-        $sizeGroups  = [];
-
-        foreach ($variants as $v) {
-            if (!in_array($v['color'], $colors)) {
-                $colors[] = $v['color'];
-            }
-            if (!in_array($v['size'], $sizes)) {
-                $sizes[] = $v['size'];
-            }
-            $vid = $v['id'];
-            $totalStock += $v['stock'];
-
-            $sizeGroups[$v['size']][] = [
-                'color' => $v['color'],
-                'stock' => $v['stock'],
-                'variant_id' => $v['id']
-            ];
-        }
-
-        $products['colors'] = $colors;
-        $products['sizes'] = $sizes;
-        $products['stock'] = $totalStock;
-        $products['vid'] = $vid;
-        $products['sizeGroups']  = $sizeGroups;
-
-        $this->view('home/product_details', ['products' => $products]);
-    }
-
-    // load theo danh mục (lọc sản phẩm theo danh mục)
-    public function listProductByCate($cid)
-    {
-        $product = $this->product->getByCategory($cid);
-        foreach ($product as &$p) {
-            $p['main_image'] = $this->image->getPrimaryImage($p['id']);
-        }
-        $this->view('home/products', ['products' => $product]);
-    }
-
-    // về trang home
-    public function home()
-    {
-        $products = $this->product->getNewProduct();
-        foreach ($products as &$p) {
-            $p['main_image'] = $this->image->getPrimaryImage($p['id']);
-        }
-        $this->view('home/main', [
-            'newProducts' => $products
-        ]);
     }
 
     // load danh sách sản phẩ về trang admin
@@ -125,7 +66,7 @@ class ProductController extends Controller
             $product_id = $this->product->create($_POST['category_id'], $_POST['name'], $_POST['description'], $_POST['price'], $_POST['status']);
 
             // xử lý upload
-            $upload_dir = __DIR__ . "/../../public/uploads/";
+            $upload_dir = __DIR__ . "/../../../public/uploads/";
             if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
             $allowed = ['jpg', 'jpeg', 'png', 'gif'];
 
@@ -193,11 +134,10 @@ class ProductController extends Controller
     // Xóa sản phẩm (admin)
     public function delete()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['delete_id'])) {
-            $this->product->delete($_POST['delete_id']);
-            $_SESSION['thongbao'] = "Xoá sản phẩm thành công";
-            $this->redirect('index.php?page=products');
-        }
+        $this->product->delete($_POST['delete_id']);
+        $_SESSION['thongbao'] = "Xoá sản phẩm thành công";
+        $this->redirect('index.php?page=products');
+
     }
 
     // Sửa sản phẩm (admin)

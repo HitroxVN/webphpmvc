@@ -1,10 +1,10 @@
 <?php
 ob_start();
 require_once __DIR__ . "/../../app/core/Session.php";
-require_once __DIR__ . "/../../app/controllers/CategoryController.php";
-require_once __DIR__ . "/../../app/controllers/ProductController.php";
-require_once __DIR__ . "/../../app/controllers/UserController.php";
-require_once __DIR__ . "/../../app/controllers/OrderController.php";
+require_once __DIR__ . "/../../app/controllers/admin/CategoryController.php";
+require_once __DIR__ . "/../../app/controllers/admin/ProductController.php";
+require_once __DIR__ . "/../../app/controllers/admin/UserController.php";
+require_once __DIR__ . "/../../app/controllers/admin/OrderController.php";
 Session::checkAdminLogin();
 $cateC = new CategoryController();
 $productC = new ProductController();
@@ -33,22 +33,13 @@ $adminpage = $_GET["page"] ?? "index";
                 <?php
                 switch ($adminpage) {
                     case 'products':
-                        $productC->list();
-                        break;
-                    case 'products_add':
-                        $productC->add();
-                        break;
-                    case 'products_edit':
-                        $productC->edit();
+                        $productC->xulyRequest();
                         break;
                     case 'orders':
                         $orderC->xulyRequest();
                         break;
                     case 'users':
-                        $userC->list();
-                        break;
-                    case 'user_edit':
-                        $userC->edit();
+                        $userC->xulyRequest();
                         break;
                     case 'categorys':
                         $cateC->xulyRequest();

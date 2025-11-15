@@ -1,13 +1,13 @@
 <?php
 ob_start();
 require_once __DIR__ . "/../app/core/Session.php";
-require_once __DIR__ . "/../app/controllers/CategoryController.php";
-require_once __DIR__ . "/../app/controllers/ProductController.php";
-require_once __DIR__ . "/../app/controllers/AuthController.php";
-require_once __DIR__ . "/../app/controllers/UserController.php";
-require_once __DIR__ . "/../app/controllers/CartController.php";
-require_once __DIR__ . "/../app/controllers/CheckoutController.php";
-require_once __DIR__ . "/../app/controllers/OrderController.php";
+require_once __DIR__ . "/../app/controllers/users/CategoryController.php";
+require_once __DIR__ . "/../app/controllers/users/ProductController.php";
+require_once __DIR__ . "/../app/controllers/users/AuthController.php";
+require_once __DIR__ . "/../app/controllers/users/UserController.php";
+require_once __DIR__ . "/../app/controllers/users/CartController.php";
+require_once __DIR__ . "/../app/controllers/users/CheckoutController.php";
+require_once __DIR__ . "/../app/controllers/users/OrderController.php";
 $cateC = new CategoryController();
 $productC = new ProductController();
 $authC = new AuthController();
@@ -35,75 +35,37 @@ $main = $_GET['page'] ?? 'home';
     <?php 
         switch ($main) {
             case 'profile':
-                if(Session::checkLogin()){
-                    $userC->showInfo();
-                } else {
-                    $authC->login();
-                }
+                Session::checkLogin() ? $userC->xulyRequest() : $authC->login();
                 break;
             case 'category':
-                if(isset($_GET['id'])){
-                    $cid = $_GET['id'];
-                    $productC->listProductByCate($cid);
-                }
+                $cateC->xulyRequest();
                 break;
             case 'products':
-                if(isset($_GET['id'])){
-                    $id = $_GET['id'];
-                    $productC->productDetails($id);
-                } else {
-                    $productC->listProduct();
-                }
+                $productC->xulyRequest();
                 break;
             case 'cart':
-                if(Session::checkLogin()){
-                    $cartC->xulyRequest();
-                } else {
-                    $authC->login();
-                }
+                Session::checkLogin() ? $cartC->xulyRequest() : $authC->login();
                 break;
             case 'register':
-                if(Session::checkLogin()){
-                    $productC->home();
-                } else {
-                    $authC->register();
-                }
+                Session::checkLogin() ? $productC->home() : $authC->register();
                 break;
             case 'login':
-                if(Session::checkLogin()){
-                    $productC->home();
-                } else {
-                    $authC->login();
-                }
+                Session::checkLogin() ? $productC->home() : $authC->login();
                 break;
             case 'logout':
                 $authC->logout();
                 break;
             case 'checkout':
-                if(Session::checkLogin()){
-                    $checkoutC->xulyRequest();
-                } else {
-                    $authC->login();
-                }
+                Session::checkLogin() ? $checkoutC->xulyRequest() : $authC->login();
                 break;
             case 'success-order':
                 include_once __DIR__ . "/../app/views/home/success_order.php";
                 break;
             case 'orders':
-                if(Session::checkLogin()){
-                if(isset($_GET['id'])){
-                    $id = $_GET['id'];
-                    $orderC->detailsId($id);
-                } else {
-                    $orderC->listUser();
-                }
-            } else {
-                $authC->login();
-            }
+                Session::checkLogin() ? $orderC->xulyRequest() : $authC->login();
                 break;
             default:
                 $productC->home();
-                // echo "test pages";
                 break;
         }
     ?>

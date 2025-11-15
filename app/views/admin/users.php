@@ -28,7 +28,7 @@
                             <td><?php echo $u['role']; ?></td>
                             <td><?php echo $u['status']; ?></td>
                             <td>
-                                <a href="index.php?page=user_edit&id=<?php echo $u['id']; ?>" class="btn btn-warning btn-sm me-1" style="display:inline-block;">Sửa</a>
+                                <a href="index.php?page=users&action=edit&id=<?php echo $u['id']; ?>" class="btn btn-warning btn-sm me-1" style="display:inline-block;">Sửa</a>
                                 <form method="POST" action="index.php?page=users" style="display:inline-block;" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
                                     <input type="hidden" name="delete_id" value="<?php echo $u['id']; ?>">
                                     <button type="submit" class="btn btn-danger btn-sm">Xóa</button>

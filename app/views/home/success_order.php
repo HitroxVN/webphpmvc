@@ -30,7 +30,7 @@ unset($_SESSION['order_success']);
       </div>
       <div class="row mb-2">
         <div class="col-5 text-muted">Tổng tiền:</div>
-        <div class="col-7 text-danger fw-semibold"><?php echo $o['total'] ?></div>
+        <div class="col-7 text-danger fw-semibold"><?php echo number_format($o['total'], 0, ',', '.'); ?> vnđ</div>
       </div>
       <div class="row mb-2">
         <div class="col-5 text-muted">Thanh toán:</div>

@@ -124,11 +124,16 @@ class Product
         return $rs;
     }
 
+    // tìm kiếm sản phẩm
     public function findProduct($keyword = ''){
-        $sql = "SELECT * FROM products WHERE products.name LIKE ?";
+        // $sql = "SELECT * FROM products WHERE products.name LIKE ?";
+        $sql = "SELECT p.*, c.name as category_name 
+            FROM {$this->tableProduct} p 
+            LEFT JOIN {$this->tableCategory} c ON p.category_id = c.id 
+            WHERE p.status = 'active' and p.name like ?";
         $stmt = $this->conn->prepare($sql);
         $input = "%{$keyword}%";
-        $stmt->bind_param("s", $keyword);
+        $stmt->bind_param("s", $input);
         $stmt->execute();
         $rs = $stmt->get_result();
         $p = $rs->fetch_all(MYSQLI_ASSOC);
