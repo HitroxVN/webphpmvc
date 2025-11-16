@@ -58,6 +58,13 @@ class ProductController extends Controller
     public function productDetails($id)
     {
         $products = $this->product->getById($id);
+
+        // fix truyền tham số sp null, sp bị ẩn
+        if(!$products || $products['status'] === 'hide') {
+            $this->redirect("index.php?page=products");
+            exit;
+        }
+
         $products['main_image'] = $this->image->getPrimaryImage($products['id']);
         $products['list_images'] = $this->image->getUrlByProduct($products['id']);
         $variants = $this->variant->getByProductId($products['id']);

@@ -139,4 +139,19 @@ class Product
         $p = $rs->fetch_all(MYSQLI_ASSOC);
         return $p;
     }
+
+    // tìm kiếm sản phẩm trên trang admin
+    public function findProductAdmin($keyword = ''){
+        $sql = "SELECT p.*, c.name as category_name 
+            FROM {$this->tableProduct} p 
+            LEFT JOIN {$this->tableCategory} c ON p.category_id = c.id 
+            WHERE p.name like ? or c.name like ?";
+        $stmt = $this->conn->prepare($sql);
+        $input = "%{$keyword}%";
+        $stmt->bind_param("ss", $input, $input);
+        $stmt->execute();
+        $rs = $stmt->get_result();
+        $p = $rs->fetch_all(MYSQLI_ASSOC);
+        return $p;
+    }
 }

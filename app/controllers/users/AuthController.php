@@ -35,6 +35,10 @@ class AuthController extends Controller
                     $rs = $this->user->add($email, $hashedPassword);
                     if (!$rs) {
                         $errors[] = "Đăng ký thất bại. Vui lòng thử lại.";
+                    } else {
+                        $_SESSION['success'] = "Đăng ký thành công";
+                        $this->redirect("index.php?page=login");
+                        exit;
                     }
                 }
             }

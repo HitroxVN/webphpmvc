@@ -5,14 +5,20 @@
       <div class="card shadow-sm rounded-4">
         <div class="card-body p-4">
           <h2 class="card-title text-center mb-4">Đăng nhập</h2>
-          <?php
-          if (!empty($errors)) : ?>
+          <?php if (!empty($errors)) : ?>
             <div class="alert alert-danger">
               <ul class="mb-0">
                 <?php foreach ($errors as $err) : ?>
                   <li><?php echo $err; ?></li>
                 <?php endforeach; ?>
               </ul>
+            </div>
+          <?php elseif(!empty($_SESSION['success'])): ?>
+            <div class="alert alert-success">
+              <?php
+              echo $_SESSION['success'];
+              unset($_SESSION['success']);
+              ?>
             </div>
           <?php endif; ?>
           <form id="login-form" method="post">

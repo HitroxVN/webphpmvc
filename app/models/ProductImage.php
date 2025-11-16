@@ -42,10 +42,7 @@ class ProductImage
         $stmt->execute();
         $result = $stmt->get_result();
 
-        $data = [];
-        while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
-        }
+        $data = $result->fetch_all(MYSQLI_ASSOC);
 
         $stmt->close();
         return $data;

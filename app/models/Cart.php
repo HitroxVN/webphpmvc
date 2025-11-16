@@ -31,7 +31,7 @@ class Cart
             JOIN products p ON pv.product_id = p.id
             LEFT JOIN categories cate ON p.category_id = cate.id
             LEFT JOIN product_images pi ON p.id = pi.product_id AND pi.is_primary = 1
-            WHERE c.user_id = ?";
+            WHERE c.user_id = ? and pv.stock > 0 and p.status = 'active'";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $uid);
         $stmt->execute();

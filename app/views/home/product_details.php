@@ -39,8 +39,8 @@
                                     <!-- Danh sách màu tương ứng -->
                                     <div class="d-flex flex-wrap gap-2">
                                         <?php foreach ($colors as $c): ?>
-                                            <label class="btn btn-outline-primary btn-sm d-flex align-items-center">
-                                                <input type="radio" name="add_cart" value="<?php echo $c['variant_id']; ?>" class="me-2" required>
+                                            <label class="btn btn-outline-<?php echo ($c['stock'] <= 0) ? "danger" : "primary"; ?> btn-sm d-flex align-items-center">
+                                                <input type="radio" name="add_cart" value="<?php echo $c['variant_id']; ?>" class="me-2" required <?php if($c['stock'] <= 0) echo "disabled"; ?>>
                                                 Màu <?php echo $c['color']; ?>
                                                 (<?php echo $c['stock']; ?>)
                                             </label>

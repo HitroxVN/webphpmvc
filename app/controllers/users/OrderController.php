@@ -34,6 +34,12 @@ class OrderController extends Controller {
     // chi tiết đơn hàng
     public function detailsId($id){
         $orders = $this->order->getById($id);
+
+        // chặn xem đơn của người khác
+        if($orders['user_id'] != $_SESSION['user']['id']) {
+            $this->redirect("index.php?page=orders");
+            exit;
+        }
         $order_items = $this->order_item->getByOrderId($id);
 
         $this->view('home/order_details', [

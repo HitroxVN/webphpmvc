@@ -14,12 +14,17 @@ class ProductController extends Controller
     private $variant;
     private $categoty;
 
+    protected $dir = __DIR__ . "/../../../public/";
     public function __construct()
     {
         $this->product = new Product();
         $this->categoty = new Category();
         $this->image = new ProductImage();
         $this->variant = new ProductVariant();
+    }
+
+    protected function upload_dir(){
+        return $this->dir . "uploads/";
     }
 
     public function xulyRequest(){
@@ -41,14 +46,27 @@ class ProductController extends Controller
             if(!empty($a) && $a === 'edit' && !empty($_GET['id'])){
                 return $this->edit();
             }
+            if(!empty($_GET['search'])){
+                return $this->search();
+            } 
         }
-        $this->list();
+        return $this->list();
     }
 
     // load danh sách sản phẩ về trang admin
     public function list()
     {
         $products = $this->product->getAll();
+        $thongbao = $_SESSION['thongbao'] ?? null;
+        unset($_SESSION['thongbao']);
+        $this->view('admin/products', [
+            'products' => $products,
+            'thongbao' => $thongbao
+        ]);
+    }
+
+    public function search(){
+        $products = $this->product->findProductAdmin($_GET['search']);
         $thongbao = $_SESSION['thongbao'] ?? null;
         unset($_SESSION['thongbao']);
         $this->view('admin/products', [
@@ -66,8 +84,8 @@ class ProductController extends Controller
             $product_id = $this->product->create($_POST['category_id'], $_POST['name'], $_POST['description'], $_POST['price'], $_POST['status']);
 
             // xử lý upload
-            $upload_dir = __DIR__ . "/../../../public/uploads/";
-            if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+            // $upload_dir = __DIR__ . "/../../../public/uploads/";
+            if (!is_dir($this->upload_dir())) mkdir($this->upload_dir(), 0777, true);
             $allowed = ['jpg', 'jpeg', 'png', 'gif'];
 
             // ảnh chính
@@ -78,7 +96,7 @@ class ProductController extends Controller
 
                 if (in_array($main_ext, $allowed)) {
                     $main_file = uniqid('main_', true) . "." . $main_ext;
-                    $target_file = $upload_dir . $main_file;
+                    $target_file = $this->upload_dir() . $main_file;
 
                     if (move_uploaded_file($main_tmp, $target_file)) {
                         // lưu vào db, đặt làm ảnh chính 1
@@ -96,7 +114,7 @@ class ProductController extends Controller
                     if (!in_array($file_ext, $allowed)) continue;
 
                     $file_name = uniqid('img_', true) . "." . $file_ext;
-                    $target_file = $upload_dir . $file_name;
+                    $target_file = $this->upload_dir() . $file_name;
 
                     if (move_uploaded_file($tmp_name, $target_file)) {
                         $this->image->create($product_id, "uploads/" . $file_name, 0);
@@ -134,6 +152,14 @@ class ProductController extends Controller
     // Xóa sản phẩm (admin)
     public function delete()
     {
+        $img = $this->image->getByProductId($_POST['delete_id']);
+        // xoá file ảnh
+        foreach($img as $i){
+            $file = $this->dir . $i['image_url'];
+            if(file_exists($file)){
+                unlink($file);
+            }
+        }
         $this->product->delete($_POST['delete_id']);
         $_SESSION['thongbao'] = "Xoá sản phẩm thành công";
         $this->redirect('index.php?page=products');
@@ -159,9 +185,9 @@ class ProductController extends Controller
             );
 
             if (!empty($_FILES['images']['name'][0])) {
-                $upload_dir = __DIR__ . "/../../public/uploads/";
+                // $upload_dir = __DIR__ . "/../../../public/uploads/";
                 // check dir
-                if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+                if (!is_dir($this->upload_dir())) mkdir($this->upload_dir(), 0777, true);
                 $allowed = ['jpg', 'jpeg', 'png', 'gif'];
 
                 foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
@@ -174,7 +200,7 @@ class ProductController extends Controller
 
                     // random name
                     $file_name = uniqid('', true) . "." . $file_ext;
-                    $target_file = $upload_dir . $file_name;
+                    $target_file = $this->upload_dir() . $file_name;
 
                     // upload va luu db
                     if (move_uploaded_file($tmp_name, $target_file)) {
@@ -199,7 +225,7 @@ class ProductController extends Controller
                 foreach ($_POST['delete_image_ids'] as $img_id) {
                     $images = $this->image->getUrlById($img_id);
                     if ($images) {
-                        $file_path = __DIR__ . "/../../public/" . $images;
+                        $file_path = $this->dir . $images;
                         if (file_exists($file_path)) {
                             unlink($file_path);
                         }

@@ -1,0 +1,7 @@
+RewriteEngine On
+
+RewriteBase /webphpmvc/
+
+Options -Indexes
+
+RewriteRule ^$ public/ [R=302,L]

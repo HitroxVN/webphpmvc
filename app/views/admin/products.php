@@ -1,10 +1,15 @@
 <section id="products" class="mt-5">
     <h2 class="mb-3">Quản lý Sản phẩm</h2>
-    <?php if(!empty($thongbao)): ?>
+    <?php if (!empty($thongbao)): ?>
         <?php echo $thongbao ?>
     <?php endif; ?>
+    <a href="index.php?page=products&action=add" class="btn btn-primary mb-3">Thêm sản phẩm mới</a><br>
+    <form action="index.php" method="get">
+        <input type="hidden" name="page" value="products">
+        <input type="text" name="search" placeholder="Tìm kiếm sản phẩm, danh mục">
+        <button type="submit">Search</button>
+    </form>
     <br>
-    <a href="index.php?page=products&action=add" class="btn btn-primary mb-3">Thêm sản phẩm mới</a>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -28,8 +33,10 @@
                         <td><?php echo number_format($p['price'], 0, ',', '.'); ?>₫</td>
                         <td><?php echo ucfirst($p['status']); ?></td>
                         <td>
-                            <a href="index.php?page=products&action=edit&id=<?php echo $p['id']; ?>" class="btn btn-warning btn-sm me-1" style="display:inline-block;">Sửa</a>
-                            <form method="POST" action="index.php?page=products" style="display:inline-block;" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+                            <a href="index.php?page=products&action=edit&id=<?php echo $p['id']; ?>"
+                                class="btn btn-warning btn-sm me-1" style="display:inline-block;">Sửa</a>
+                            <form method="POST" action="index.php?page=products" style="display:inline-block;"
+                                onsubmit="return confirm('Bạn có chắc muốn xóa?');">
                                 <input type="hidden" name="delete_id" value="<?php echo $p['id']; ?>">
                                 <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                             </form>
