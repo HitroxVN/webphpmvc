@@ -33,4 +33,20 @@ class Session
             exit;
         }
     }
+
+    // kiểm tra Staff
+    public static function checkStaffLogin()
+    {
+        Session::start();
+
+        if (!isset($_SESSION['user']['role'])) {
+            header('Location: login.php');
+            exit;
+        }
+
+        if ($_SESSION['user']['role'] !== 'staff') {
+            header('Location: ../index.php');
+            exit;
+        }
+    }
 }

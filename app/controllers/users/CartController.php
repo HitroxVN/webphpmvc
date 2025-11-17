@@ -91,6 +91,7 @@ class CartController extends Controller
     public function listCart(){
         unset($_SESSION['checkout_product']);
         $cart = $this->cart->getCartByUser($_SESSION['user']['id']);
+        $_SESSION['cart_count'] = count($cart);
         $this->view('home/cart', ['carts' => $cart]);
     }
 }

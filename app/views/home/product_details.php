@@ -3,13 +3,28 @@
 
         <!-- Ảnh sản phẩm -->
         <div class="col-md-6">
-            <div class="card shadow-sm">
-                <img src="<?php echo $products['main_image']; ?>" class="card-img-top" width="350" height="350" alt="Main image">
+            <div class="card shadow-sm position-relative">
+                <!-- Ảnh chính -->
+                <img id="mainImage" src="<?php echo $products['main_image']; ?>" class="card-img-top" width="350" height="350" alt="Main image">
+
+                <button id="closeThumb" class="btn btn-danger position-absolute" style="top:10px; right:10px; display:none;"><i class="bi bi-x-circle-fill"></i></button>
+
                 <div class="card-body">
-                    <div class="d-flex justify-content-center gap-2">
-                        <?php foreach ($products['list_images'] as $i): ?>
-                            <img src="<?php echo $i['image_url']; ?>" class="img-thumbnail" width="150" height="150" alt="Ảnh phụ">
-                        <?php endforeach; ?>
+                    <div class="d-flex align-items-center gap-2 position-relative">
+
+                        <!-- Nút điều hướng trái -->
+                        <button id="prevThumb" class="btn btn-secondary">&lt;</button>
+
+                        <!-- Container ảnh nhỏ -->
+                        <div id="thumbnailContainer" class="d-flex gap-2 overflow-hidden flex-grow-1" style="scroll-behavior: smooth;">
+                            <?php foreach ($products['list_images'] as $i): ?>
+                                <img src="<?php echo $i['image_url']; ?>" class="img-thumbnail thumbnail-img" width="150" height="150" alt="Ảnh phụ" data-src="<?php echo $i['image_url']; ?>">
+                            <?php endforeach; ?>
+                        </div>
+
+                        <!-- Nút điều hướng phải -->
+                        <button id="nextThumb" class="btn btn-secondary">&gt;</button>
+
                     </div>
                 </div>
             </div>
@@ -29,20 +44,16 @@
                     <input type="hidden" name="product_id" value="<?php echo $products['id']; ?>">
                     <!-- Màu & Size -->
                     <div class="mb-4 border">
-
                         <?php if (!empty($products['sizeGroups'])): ?>
                             <?php foreach ($products['sizeGroups'] as $size => $colors): ?>
-                                    <!-- Hiển thị size -->
                                     <label class="fw-bold text-dark d-block mb-2">
                                         Size: <?php echo $size; ?>
                                     </label>
-                                    <!-- Danh sách màu tương ứng -->
                                     <div class="d-flex flex-wrap gap-2">
                                         <?php foreach ($colors as $c): ?>
                                             <label class="btn btn-outline-<?php echo ($c['stock'] <= 0) ? "danger" : "primary"; ?> btn-sm d-flex align-items-center">
                                                 <input type="radio" name="add_cart" value="<?php echo $c['variant_id']; ?>" class="me-2" required <?php if($c['stock'] <= 0) echo "disabled"; ?>>
-                                                Màu <?php echo $c['color']; ?>
-                                                (<?php echo $c['stock']; ?>)
+                                                Màu <?php echo $c['color']; ?> (<?php echo $c['stock']; ?>)
                                             </label>
                                         <?php endforeach; ?>
                                     </div>
@@ -57,20 +68,60 @@
                         <input type="number" name="quantity" class="form-control" min="1" max="<?php echo $products['stock']; ?>" value="1" required style="max-width: 60px;">
                     </div>
 
-                    <!-- Tồn kho -->
                     <p class="mt-3">
                         <strong>Tồn kho:</strong> <span id="stock"><?php echo $products['stock']; ?></span> sản phẩm
                     </p>
 
-                    <!-- Nút mua -->
                     <div class="mt-4 d-flex gap-2">
                         <button class="btn btn-success flex-fill" name="action" value="addcart">Thêm vào giỏ</button>
                         <button class="btn btn-danger flex-fill" name="action" value="buynow">Mua ngay</button>
                     </div>
-
                 </form>
             </div>
         </div>
 
     </div>
 </div>
+
+<script>
+    const thumbnails = document.querySelectorAll('.thumbnail-img');
+    const mainImage = document.getElementById('mainImage');
+    const closeBtn = document.getElementById('closeThumb');
+    const thumbContainer = document.getElementById('thumbnailContainer');
+
+    // Click vào ảnh phụ: hiển thị ảnh đó
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            mainImage.src = thumb.getAttribute('data-src');
+            closeBtn.style.display = 'block'; // hiện nút đóng
+        });
+    });
+
+    // Nút đóng: trở về ảnh chính mặc định
+    closeBtn.addEventListener('click', () => {
+        mainImage.src = '<?php echo $products['main_image']; ?>';
+        closeBtn.style.display = 'none';
+    });
+
+    // Nút điều hướng thumbnails
+    const prevBtn = document.getElementById('prevThumb');
+    const nextBtn = document.getElementById('nextThumb');
+
+    prevBtn.addEventListener('click', () => {
+        thumbContainer.scrollBy({ left: -160, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+        thumbContainer.scrollBy({ left: 160, behavior: 'smooth' });
+    });
+</script>
+
+<style>
+    .thumbnail-img {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .thumbnail-img:hover {
+        transform: scale(1.05);
+    }
+</style>

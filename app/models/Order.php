@@ -27,7 +27,7 @@ class Order
 
     // lấy đon hàng theo user
     public function getByUser($uid){
-        $sql = "SELECT * FROM {$this->table} WHERE user_id = ?";
+        $sql = "SELECT o.*, u.full_name as full_name, u.email FROM {$this->table} o LEFT JOIN {$this->tableUser} u ON o.user_id = u.id where u.id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $uid);
         $stmt->execute();
@@ -39,7 +39,7 @@ class Order
 
     // lấy tất cả đơn hàng
     public function getAll(){
-        $sql = "SELECT o.*, u.full_name as full_name FROM {$this->table} o LEFT JOIN {$this->tableUser} u ON o.user_id = u.id";
+        $sql = "SELECT o.*, u.full_name as full_name, u.email FROM {$this->table} o LEFT JOIN {$this->tableUser} u ON o.user_id = u.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $rs = $stmt->get_result();

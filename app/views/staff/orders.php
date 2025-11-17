@@ -18,9 +18,9 @@
             <tr>
                 <form method="post">
                 <td><input type="hidden" name="order_id" value="<?= $o['id']; ?>"><?php echo $o['id'];?></td>
-                <td><?php echo $o['full_name'] ?? '<span class="text-danger">Chưa có thông tin</span>' ?>
-                <br> <span class="text-muted"><?php echo $o['email']; ?></span>    
-            </td>
+                <td><?php echo $o['full_name'] ?? '<span class="text-danger">Chưa có thông tin</span>'; ?>
+                    <br> <span class="text-muted"><?php echo $o['email']; ?></span>
+                </td>
                 <td><?php echo number_format($o['total_amount'], 0, ',', '.'); ?> vnđ</td>
                 <td>
                     <select name="status_update" class="form-select form-select-sm">

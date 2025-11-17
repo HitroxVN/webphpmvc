@@ -3,7 +3,6 @@
     <?php if (!empty($thongbao)): ?>
         <?php echo $thongbao ?>
     <?php endif; ?>
-    <a href="index.php?page=products&action=add" class="btn btn-primary mb-3">Thêm sản phẩm mới</a><br>
     <form action="index.php" method="get">
         <input type="hidden" name="page" value="products">
         <input type="text" name="search" placeholder="Tìm kiếm sản phẩm, danh mục">
@@ -40,13 +39,8 @@
                         </td>
 
                         <td>
-                            <a href="index.php?page=products&action=edit&id=<?php echo $p['id']; ?>"
-                                class="btn btn-warning btn-sm me-1" style="display:inline-block;">Sửa</a>
-                            <form method="POST" action="index.php?page=products" style="display:inline-block;"
-                                onsubmit="return confirm('Bạn có chắc muốn xóa?');">
-                                <input type="hidden" name="delete_id" value="<?php echo $p['id']; ?>">
-                                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                            </form>
+                            <a href="index.php?page=products&action=edit&id=<?php echo $p['id']; ?>" class="btn btn-warning btn-sm me-1"
+                                style="display:inline-block;">Sửa</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

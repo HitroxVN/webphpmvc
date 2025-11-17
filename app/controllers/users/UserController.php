@@ -28,11 +28,24 @@ class UserController extends Controller
         $u = $_SESSION['user'];
         $email = $u['email']; // session email hiện tại
         $id = $_POST['id'];
-        $full_name = $_POST['full_name'] ?? '';
-        $input_email = $_POST['email'] ?? '';
-        $phone = $_POST['phone'] ?? '';
-        $address = $_POST['address'] ?? '';
+
+        // cho phép null nếu để trống (trừ email)
+        $full_name = trim($_POST['full_name'] ?? '') ?: null;
+        $phone = trim($_POST['phone'] ?? '') ?: null;
+        $address = trim($_POST['address'] ?? '') ?: null;
+        $input_email = trim($_POST['email'] ?? '');
+
         $notify = [];
+
+        // validate email 
+        if($input_email === ''){
+            $notify['fail'] = "Email ko đc để trống";
+            $this->view("home/profile", [
+                'user' => $u,
+                'notify' => $notify
+            ]);
+            return;
+        }
 
         // check email trùng lặp
         $checkEmail = $this->p->getByEmail($input_email);

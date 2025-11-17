@@ -31,8 +31,10 @@ class UserController extends Controller
     // Lấy danh sách user về trang admin
     public function list()
     {
+        $thongbao = $_SESSION['thongbao'] ?? null;
+        unset($_SESSION['thongbao']);
         $users = $this->p->getAll();
-        $this->view('admin/users', ['users' => $users]);
+        $this->view('admin/users', ['users' => $users, 'thongbao' => $thongbao]);
     }
 
     // view form edit
@@ -49,19 +51,25 @@ class UserController extends Controller
     public function edit()
     {
         $id = $_POST['edit_id'] ?? null;
-        $full_name = $_POST['full_name'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $phone = $_POST['phone'] ?? '';
-        $address = $_POST['address'] ?? '';
+        $full_name = trim($_POST['full_name'] ?? '') ?: null;
+        $email = trim($_POST['email'] ?? '');
+        $phone = trim($_POST['phone'] ?? '') ?: null;
+        $address = trim($_POST['address'] ?? '') ?: null;
         $role = $_POST['role'] ?? 'customer';
         $status = $_POST['status'] ?? 'active';
+
+        if($email === ''){
+            $_SESSION['thongbao'] = "Cập nhật thất bại, email không được để trống";
+            $this->redirect('index.php?page=users');
+            return;
+        }
 
         if ($id) {
             $success = $this->p->update($id, $full_name, $email, $phone, $address, $role, $status);
             if ($success) {
-                $_SESSION['message'] = "Cập nhật người dùng thành công!";
+                $_SESSION['thongbao'] = "Cập nhật người dùng thành công!";
             } else {
-                $_SESSION['error'] = "Cập nhật thất bại!";
+                $_SESSION['thongbao'] = "Cập nhật thất bại!";
             }
         }
 
@@ -77,9 +85,9 @@ class UserController extends Controller
         if ($id) {
             $success = $this->p->delete($id);
             if ($success) {
-                $_SESSION['message'] = "Xóa người dùng thành công!";
+                $_SESSION['thongbao'] = "Xóa người dùng thành công!";
             } else {
-                $_SESSION['error'] = "Xóa thất bại!";
+                $_SESSION['thongbao'] = "Xóa thất bại!";
             }
         }
 

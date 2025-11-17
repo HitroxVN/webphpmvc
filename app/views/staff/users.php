@@ -1,8 +1,5 @@
 <section id="users" class="mt-5">
     <h2 class="mb-3">Quản lý Người dùng</h2>
-    <?php if (!empty($thongbao)): ?>
-        <?php echo $thongbao ?>
-    <?php endif; ?>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -11,7 +8,6 @@
                 <th>Email</th>
                 <th>Số điện thoại</th>
                 <th>Địa chỉ</th>
-                <th>Vai trò</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
@@ -28,7 +24,6 @@
                             <td><?php echo $u['email']; ?></td>
                             <td><?php echo $u['phone'] ?? '<span class="text-danger">Chưa có thông tin</span>'; ?></td>
                             <td><?php echo $u['address'] ?? '<span class="text-danger">Chưa có thông tin</span>'; ?></td>
-                            <td><?php echo $u['role'] === 'admin' ? '<span class="badge bg-success">Quản trị</span>' : '<span class="badge bg-secondary">Khách hàng</span>'; ?></td>
                             <td>
                             <?php if ($u['status'] === 'active'): ?>
                                 <span class="badge bg-success">Hoạt động</span>
@@ -37,11 +32,7 @@
                             <?php endif; ?>
                             </td>
                             <td>
-                                <a href="index.php?page=users&action=edit&id=<?php echo $u['id']; ?>" class="btn btn-warning btn-sm me-1" style="display:inline-block;">Sửa</a>
-                                <form method="POST" action="index.php?page=users" style="display:inline-block;" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
-                                    <input type="hidden" name="delete_id" value="<?php echo $u['id']; ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                </form>
+                                <a href="index.php?page=orders&user=<?php echo $u['id']; ?>" class="btn btn-warning btn-sm me-1" style="display:inline-block;">Xem list đơn hàng</a>
                             </td>
                         </form>
                     </tr>

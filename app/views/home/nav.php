@@ -60,8 +60,12 @@
 
                 <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
                     <li class="nav-item">
-                    <a class="nav-link" href="admin">Trang quản lý</a>
-                </li>
+                    <a class="nav-link" href="admin">Trang admin</a>
+                    </li>
+                <?php elseif(isset($_SESSION['user']) && $_SESSION['user']['role'] === 'staff'): ?>
+                    <li class="nav-item">
+                    <a class="nav-link" href="staff">Trang quản lý</a>
+                    </li>
                 <?php endif; ?>
 
 
@@ -80,7 +84,7 @@
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi bi-cart-fill me-1"></i>
                     Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $_SESSION['cart_count'] ?? 0;?></span>
                 </button>
             </form>
         </div>
