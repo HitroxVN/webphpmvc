@@ -1,4 +1,5 @@
-<div class="container py-5">
+<main>
+  <div class="container py-5">
   <h2 class="mb-4 text-center">Chi tiết đơn hàng #<?php echo $order['id']; ?></h2>
 
   <div class="card p-4 mb-4">
@@ -64,3 +65,4 @@
     </div>
   </div>
 </div>
+</main>

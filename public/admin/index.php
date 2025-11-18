@@ -5,11 +5,13 @@ require_once __DIR__ . "/../../app/controllers/CategoryController.php";
 require_once __DIR__ . "/../../app/controllers/ProductController.php";
 require_once __DIR__ . "/../../app/controllers/UserController.php";
 require_once __DIR__ . "/../../app/controllers/OrderController.php";
+require_once __DIR__ . "/../../app/controllers/DashboardController.php";
 Session::checkAdminLogin();
 $cateC = new CategoryController();
 $productC = new ProductController();
 $userC = new UserController();
 $orderC = new OrderController();
+$dashboardC = new DashboardController();
 $adminpage = $_GET["page"] ?? "index";
 ?>
 <!DOCTYPE html>
@@ -56,7 +58,7 @@ $adminpage = $_GET["page"] ?? "index";
                         $cateC->xulyRequest();
                         break;
                     default:
-                        include_once __DIR__ . "/../../app/views/admin/dashboard.php";
+                        $dashboardC->index();
                         break;
                 }
                 ?>

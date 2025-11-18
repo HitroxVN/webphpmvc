@@ -1,4 +1,5 @@
-<div class="container py-5">
+<main>
+    <div class="container py-5">
     <div class="row g-4">
 
         <!-- Ảnh sản phẩm -->
@@ -76,5 +77,6 @@
 
     </div>
 </div>
+</main>
 
     <?php include_once __DIR__ . '/previewImage.php'; ?>

@@ -1,4 +1,5 @@
-<div class="container py-5">
+<main>
+  <div class="container py-5">
   <h2 class="mb-4 text-center">Đơn hàng của bạn</h2>
 
   <table class="table table-bordered table-hover text-center align-middle bg-white">
@@ -26,3 +27,4 @@
     </tbody>
   </table>
 </div>
+</main>
