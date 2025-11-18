@@ -1,4 +1,0 @@
-RewriteEngine On
-
-# staff và nhanvien đều trỏ về cùng 1 file
-RewriteRule ^(staff|nhanvien)/?$ staff/index.php [L]

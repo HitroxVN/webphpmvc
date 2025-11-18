@@ -9,6 +9,7 @@ Session::checkStaffLogin();
 $orderC = new OrderController();
 $productC = new ProductController();
 $userC = new UserController();
+$statsC = new StatsController();
 $adminpage = $_GET["page"] ?? "home";
 ?>
 
@@ -20,6 +21,7 @@ $adminpage = $_GET["page"] ?? "home";
     <title>Trang quản lý</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -40,7 +42,8 @@ $adminpage = $_GET["page"] ?? "home";
                         $userC->xulyRequest();
                         break;
                     default:
-                        // $statsC->list();
+                    // dùng tạm của Admin dashboard
+                        $statsC->list();
                         break;
                 }
                 ?>
