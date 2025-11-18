@@ -1,0 +1,128 @@
+/* ============= ROOT VARIABLES ============= */
+:root {
+  --nav-height: 64px;
+}
+
+/* ============= BODY & LAYOUT ============= */
+body {
+  display: block;
+  min-height: 100vh;
+  /* padding-top: var(--nav-height); */
+}
+
+/* ============= NAVIGATION ============= */
+nav.navbar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 1002;
+}
+
+/* ============= HEADER ============= */
+header {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 1001;
+  background: inherit;
+}
+
+/* ============= MAIN CONTENT ============= */
+main {
+  flex: 1;
+  padding-top: var(--nav-height);
+}
+
+/* ============= PRODUCT CARDS - HOME PAGE ============= */
+.card .img-wrap {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+}
+
+.card .img-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.35s ease;
+  display: block;
+}
+
+.card:hover .img-wrap img {
+  transform: scale(1.08);
+}
+
+@media (max-width: 576px) {
+  .card .img-wrap {
+    height: 160px;
+  }
+}
+
+/* ============= PRODUCT DETAILS PAGE ============= */
+.img-wrap-main {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+}
+
+.img-wrap-main img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* ============= THUMBNAIL IMAGES ============= */
+.thumbnail-img {
+  border: 2px solid #ddd;
+  border-radius: 0.25rem;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+
+.thumbnail-img:hover {
+  border-color: #007bff;
+  opacity: 0.8;
+}
+
+.thumbnail-img.active {
+  border-color: #007bff;
+}
+
+/* ============= ADMIN SIDEBAR LAYOUT ============= */
+body.admin-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.admin-main {
+  margin-left: auto;
+  width: calc(100% - 16.66666667%);
+  height: 100vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .admin-main {
+    width: 100%;
+  }
+}

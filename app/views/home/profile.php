@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <div class="card shadow-sm border-0">
-        <div class="card-header bg-dark text-white text-center">
+        <div class="card-header bg-secondary text-white text-center">
           <h4 class="mb-0">Thông tin tài khoản</h4>
         </div>
 
@@ -48,7 +48,7 @@
             </div>
 
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Cập nhật</button>
+              <button type="submit" class="btn btn-dark">Cập nhật</button>
             </div>
           </form>
         </div>

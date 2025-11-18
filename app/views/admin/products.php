@@ -1,4 +1,4 @@
-<section id="products" class="mt-5">
+<section id="products">
     <h2 class="mb-3">Quản lý Sản phẩm</h2>
     <?php if (!empty($thongbao)): ?>
         <?php echo $thongbao ?>

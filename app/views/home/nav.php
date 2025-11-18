@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
-    <div class="container px-4 px-lg-5">
+    <div class="container">
         <!-- Logo, tên shop -->
         <a class="navbar-brand fw-bold" href=".">4TC Shop</a>
 
@@ -17,10 +17,13 @@
                     <a class="nav-link active" aria-current="page" href=".">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link active" href="index.php?page=products">Sản phẩm</a>
                 </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li> -->
 
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="shopDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Products
@@ -32,7 +35,7 @@
                         </li>
                         <li><a class="dropdown-item" href="#newProducts">Sản phẩm mới nhất</a></li>
                     </ul>
-                </li>
+                </li> -->
 
                 <!-- Login session -->
                 <?php if (isset($_SESSION["user"])): ?>

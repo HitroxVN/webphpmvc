@@ -3,28 +3,15 @@
 
         <!-- Ảnh sản phẩm -->
         <div class="col-md-6">
-            <div class="card shadow-sm position-relative">
-                <!-- Ảnh chính -->
-                <img id="mainImage" src="<?php echo $products['main_image']; ?>" class="card-img-top" width="350" height="350" alt="Main image">
-
-                <button id="closeThumb" class="btn btn-danger position-absolute" style="top:10px; right:10px; display:none;"><i class="bi bi-x-circle-fill"></i></button>
-
+            <div class="card shadow-sm">
+                <div class="img-wrap-main">
+                    <img id="mainImage" src="<?php echo $products['main_image']; ?>" class="card-img-top" alt="Main image" style="cursor: pointer;">
+                </div>
                 <div class="card-body">
-                    <div class="d-flex align-items-center gap-2 position-relative">
-
-                        <!-- Nút điều hướng trái -->
-                        <button id="prevThumb" class="btn btn-secondary">&lt;</button>
-
-                        <!-- Container ảnh nhỏ -->
-                        <div id="thumbnailContainer" class="d-flex gap-2 overflow-hidden flex-grow-1" style="scroll-behavior: smooth;">
-                            <?php foreach ($products['list_images'] as $i): ?>
-                                <img src="<?php echo $i['image_url']; ?>" class="img-thumbnail thumbnail-img" width="150" height="150" alt="Ảnh phụ" data-src="<?php echo $i['image_url']; ?>">
-                            <?php endforeach; ?>
-                        </div>
-
-                        <!-- Nút điều hướng phải -->
-                        <button id="nextThumb" class="btn btn-secondary">&gt;</button>
-
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <?php foreach ($products['list_images'] as $i): ?>
+                            <img src="<?php echo $i['image_url']; ?>" class="img-thumbnail thumbnail-img" width="100" height="100" alt="Ảnh phụ" style="cursor: pointer; transition: opacity 0.2s;" data-full-src="<?php echo $i['image_url']; ?>">
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -43,7 +30,8 @@
                 <form action="index.php?page=cart" method="post">
                     <input type="hidden" name="product_id" value="<?php echo $products['id']; ?>">
                     <!-- Màu & Size -->
-                    <div class="mb-4 border">
+                    <div class="mb-4">
+
                         <?php if (!empty($products['sizeGroups'])): ?>
                             <?php foreach ($products['sizeGroups'] as $size => $colors): ?>
                                     <label class="fw-bold text-dark d-block mb-2">
@@ -83,45 +71,4 @@
     </div>
 </div>
 
-<script>
-    const thumbnails = document.querySelectorAll('.thumbnail-img');
-    const mainImage = document.getElementById('mainImage');
-    const closeBtn = document.getElementById('closeThumb');
-    const thumbContainer = document.getElementById('thumbnailContainer');
-
-    // Click vào ảnh phụ: hiển thị ảnh đó
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', () => {
-            mainImage.src = thumb.getAttribute('data-src');
-            closeBtn.style.display = 'block'; // hiện nút đóng
-        });
-    });
-
-    // Nút đóng: trở về ảnh chính mặc định
-    closeBtn.addEventListener('click', () => {
-        mainImage.src = '<?php echo $products['main_image']; ?>';
-        closeBtn.style.display = 'none';
-    });
-
-    // Nút điều hướng thumbnails
-    const prevBtn = document.getElementById('prevThumb');
-    const nextBtn = document.getElementById('nextThumb');
-
-    prevBtn.addEventListener('click', () => {
-        thumbContainer.scrollBy({ left: -160, behavior: 'smooth' });
-    });
-
-    nextBtn.addEventListener('click', () => {
-        thumbContainer.scrollBy({ left: 160, behavior: 'smooth' });
-    });
-</script>
-
-<style>
-    .thumbnail-img {
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
-    .thumbnail-img:hover {
-        transform: scale(1.05);
-    }
-</style>
+    <?php include_once __DIR__ . '/previewImage.php'; ?>

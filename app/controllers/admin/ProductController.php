@@ -86,7 +86,7 @@ class ProductController extends Controller
             // xử lý upload
             // $upload_dir = __DIR__ . "/../../../public/uploads/";
             if (!is_dir($this->upload_dir())) mkdir($this->upload_dir(), 0777, true);
-            $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'avif'];
 
             // ảnh chính
             if (!empty($_FILES['main_image']['name'])) {
