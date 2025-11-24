@@ -28,7 +28,12 @@
                             <td><?php echo $u['email']; ?></td>
                             <td><?php echo $u['phone'] ?? '<span class="text-danger">Chưa có thông tin</span>'; ?></td>
                             <td><?php echo $u['address'] ?? '<span class="text-danger">Chưa có thông tin</span>'; ?></td>
-                            <td><?php echo $u['role'] === 'admin' ? '<span class="badge bg-success">Quản trị</span>' : '<span class="badge bg-secondary">Khách hàng</span>'; ?></td>
+                            <td><?php echo match ($u['role']) {
+                                'admin' => '<span class="badge bg-success">Quản trị</span>',
+                                'staff' => '<span class="badge bg-warning">Nhân viên</span>',
+                                default => '<span class="badge bg-secondary">Khách hàng</span>'
+                            } ?>
+                            </td>
                             <td>
                             <?php if ($u['status'] === 'active'): ?>
                                 <span class="badge bg-success">Hoạt động</span>

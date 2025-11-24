@@ -13,39 +13,42 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const mainImage = document.getElementById('mainImage');
-        const thumbnails = document.querySelectorAll('.thumbnail-img');
-        // If bootstrap is not loaded yet, this will throw; guard with try/catch
-        let imageModal = null;
-        try {
-            imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
-        } catch (e) {
-            // bootstrap may not be ready; we'll create modal instance on demand
-            imageModal = null;
-        }
-        const modalImage = document.getElementById('modalImage');
+document.addEventListener('DOMContentLoaded', function() {
+    const mainImage = document.getElementById('mainImage');
+    const thumbnails = document.querySelectorAll('.thumbnail-img');
+    const modalImage = document.getElementById('modalImage');
+    const imageModalEl = document.getElementById('imageModal');
 
-        // Click vào ảnh phụ để thay đổi ảnh chính
-        thumbnails.forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                const fullSrc = this.getAttribute('data-full-src');
-                if (fullSrc) mainImage.src = fullSrc;
-                
-                // Cập nhật active class
-                thumbnails.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+    // Lưu ảnh chính ban đầu
+    const originalMainImage = mainImage.src;
 
-        // Click vào ảnh chính để mở modal xem to
-        mainImage.addEventListener('click', function() {
-            modalImage.src = mainImage.src;
-            if (!imageModal) {
-                // create modal instance lazily
-                imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
-            }
-            imageModal.show();
+    // Khởi tạo modal
+    let imageModal = new bootstrap.Modal(imageModalEl);
+
+    // Click ảnh phụ → đổi ảnh chính
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', function() {
+            const fullSrc = this.getAttribute('data-full-src');
+            if (fullSrc) mainImage.src = fullSrc;
+
+            thumbnails.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
         });
     });
+
+    // Click ảnh chính → mở modal
+    mainImage.addEventListener('click', function() {
+        modalImage.src = mainImage.src;
+        imageModal.show();
+    });
+
+    // Khi đóng modal → trả về ảnh chính ban đầu
+    imageModalEl.addEventListener('hidden.bs.modal', function() {
+        mainImage.src = originalMainImage;
+        
+        // Reset active thumbnail
+        thumbnails.forEach(t => t.classList.remove('active'));
+        thumbnails[0]?.classList.add('active'); // active ảnh đầu tiên
+    });
+});
 </script>

@@ -32,7 +32,6 @@ $main = $_GET['page'] ?? 'home';
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <?php include_once __DIR__ . "/../app/views/home/nav.php"; ?>
     <?php $cateC->listHome(); ?>
     <?php 
         switch ($main) {
@@ -71,6 +70,7 @@ $main = $_GET['page'] ?? 'home';
                 break;
         }
     ?>
+    <?php include_once __DIR__ . "/../app/views/home/nav.php"; ?>
     <?php include_once __DIR__ . "/../app/views/home/footer.php"; ?>
 
     <!-- Bootstrap Js -->

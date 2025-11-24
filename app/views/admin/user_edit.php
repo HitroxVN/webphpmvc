@@ -37,6 +37,7 @@
           <label class="form-label">Vai trò</label>
           <select class="form-select" name="role" required>
             <option value="customer" <?= $p['role'] == 'customer' ? 'selected' : '' ?>>Khách hàng</option>
+            <option value="staff" <?= $p['role'] == 'staff' ? 'selected' : '' ?>>Nhân viên</option>
             <option value="admin" <?= $p['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
           </select>
         </div>
