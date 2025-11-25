@@ -7,6 +7,14 @@
       <p class="text-muted">Khám phá các mẫu giày mới nhất và phong cách nhất của chúng tôi</p>
     </div>
 
+    <!-- Lọc theo giá -->
+    <form action="index.php" method="get">
+      <input type="hidden" name="page" value="products">
+      Giá thấp nhất: <input type="number" name="min_price" min="0" step="1000" value="<?php echo $_GET['min_price'] ?? '' ?>">
+      Giá cao nhất: <input type="number" name="max_price" min="0" step="1000" value="<?php echo $_GET['max_price'] ?? '' ?>">
+      <button type="submit">Lọc</button>
+    </form>
+
     <!-- list sản phẩm -->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
       <?php if (!empty($products)): ?>

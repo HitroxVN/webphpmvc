@@ -1,5 +1,20 @@
 <section id="orders" class="mt-5">
     <h2 class="mb-3">Quản lý Đơn hàng</h2>
+
+    <form action="index.php" method="get">
+        <input type="hidden" name="page" value="orders">
+    <label>Lọc trạng thái đơn hàng</label><br>
+    <select name="loc_orders">
+        <option value="pending" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'pending' ? 'selected' : '' ?>>Chờ xác nhận</option>
+        <option value="confirmed" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'confirmed' ? 'selected' : '' ?>>Đã xác nhận</option>
+        <option value="shipping" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'shipping' ? 'selected' : '' ?>>Đang giao hàng</option>
+        <option value="shipped" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'shipped' ? 'selected' : '' ?>>Đã giao hàng</option>
+        <option value="delivered" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'delivered' ? 'selected' : '' ?>>Đã nhận hàng</option>
+        <option value="cancelled" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'cancelled' ? 'selected' : '' ?>>Đã huỷ đơn</option>
+        </select>
+        <button type="submit">Lọc</button>
+    </form>
+
     <?php if(!empty($thongbao)): ?>
         <?php echo $thongbao ?>
     <?php endif; ?>

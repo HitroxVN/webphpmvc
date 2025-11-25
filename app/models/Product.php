@@ -140,6 +140,38 @@ class Product
         return $p;
     }
 
+    public function loc_gia($min = null, $max = null){
+        $sql = "SELECT p.*, c.name as category_name 
+            FROM {$this->tableProduct} p 
+            LEFT JOIN {$this->tableCategory} c ON p.category_id = c.id 
+            WHERE p.status = 'active'";
+
+        $typedata = "";
+        $bien = [];
+        if(!empty($min)){
+            $sql .= " and p.price >= ?";
+            $typedata .= "d";
+            $bien[] = $min;
+        }
+        if(!empty($max)){
+            $sql .= " and p.price <= ?";
+            $typedata .= "d";
+            $bien[] = $max;
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        // $stmt->bind_param("dd", $min, $max);
+        if(!empty($bien)){
+            // tách thành tuwgnf biến
+            $stmt->bind_param($typedata, ...$bien);
+        }
+        
+        $stmt->execute();
+        $rs = $stmt->get_result();
+        $p = $rs->fetch_all(MYSQLI_ASSOC);
+        return $p;
+    }
+
     // tìm kiếm sản phẩm trên trang admin
     public function findProductAdmin($keyword = ''){
         $sql = "SELECT p.*, c.name as category_name 

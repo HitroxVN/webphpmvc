@@ -31,6 +31,9 @@ class ProductController extends Controller
                 // echo "search";
                 return $this->findP();
             }
+            if(!empty($_GET['min_price']) || !empty($_GET['max_price'])){
+                return $this->loc_gia();
+            }
         }
         return $this->listProduct();
     }
@@ -42,6 +45,19 @@ class ProductController extends Controller
             $p['main_image'] = $this->image->getPrimaryImage($p['id']);
         }
         $this->view('home/products', ['products' => $pro]);
+    }
+
+    // lọc theo giá
+    public function loc_gia()
+    {
+        $min = $_GET['min_price'] ?? null;
+        $max = $_GET['max_price'] ?? null;
+
+        $products = $this->product->loc_gia($min, $max);
+        foreach ($products as &$p) {
+            $p['main_image'] = $this->image->getPrimaryImage($p['id']);
+        }
+        $this->view('home/products', ['products' => $products]);
     }
 
     // về trang san phẩm

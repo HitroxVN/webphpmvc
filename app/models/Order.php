@@ -25,6 +25,18 @@ class Order
         return $o;
     }
 
+    // lấy theo status
+    public function getByStatus($status){
+        $sql = "SELECT o.*, u.full_name as full_name, u.email FROM {$this->table} o LEFT JOIN {$this->tableUser} u ON o.user_id = u.id WHERE o.status = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $status);
+        $stmt->execute();
+        $rs = $stmt->get_result();
+        $o = $rs->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $o;
+    }
+
     // lấy đon hàng theo user
     public function getByUser($uid){
         $sql = "SELECT o.*, u.full_name as full_name, u.email FROM {$this->table} o LEFT JOIN {$this->tableUser} u ON o.user_id = u.id where u.id = ?";

@@ -27,6 +27,11 @@ class OrderController extends Controller {
                 // echo "test" . $_GET['user'];
                 return $this->listByUserId();
             }
+
+            // lọc trạng thái đơn hàng
+            if(!empty($_GET['loc_orders'])){
+                return $this->loc_orders();
+            }
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // cap nhap trang thai don hang
             if (!empty($_POST['status_update'])) {
@@ -63,6 +68,18 @@ class OrderController extends Controller {
     // view for admin
     public function list(){
         $orders = $this->order->getAll();
+        $thongbao = $_SESSION['thongbao'] ?? null;
+        unset($_SESSION['thongbao']);
+
+        $this->view('staff/orders', [
+            'order' => $orders,
+            'thongbao' => $thongbao
+        ]);
+    }
+
+    // lọc trạng thái đơn hàng
+    public function loc_orders(){
+        $orders = $this->order->getByStatus($_GET['loc_orders']);
         $thongbao = $_SESSION['thongbao'] ?? null;
         unset($_SESSION['thongbao']);
 
