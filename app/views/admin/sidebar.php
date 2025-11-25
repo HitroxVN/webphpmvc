@@ -11,6 +11,6 @@
     <hr class="border-secondary opacity-50">
     <ul class="nav flex-column mt-4">
         <!-- <li class="nav-item mb-1"><a class="nav-link text-white" href="../"><i class="bi bi-house-door me-2"></i>Trở về trang home</a></li> -->
-        <li class="nav-item mb-1"><a class="nav-link text-white" href="../index.php?page=logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>
+        <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>
     </ul>
 </nav>

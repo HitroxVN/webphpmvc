@@ -6,12 +6,14 @@ require_once __DIR__ . "/../../app/controllers/admin/ProductController.php";
 require_once __DIR__ . "/../../app/controllers/admin/UserController.php";
 require_once __DIR__ . "/../../app/controllers/admin/OrderController.php";
 require_once __DIR__ . "/../../app/controllers/admin/StatsController.php";
+require_once __DIR__ . "/../../app/controllers/admin/AuthController.php";
 Session::checkAdminLogin();
 $cateC = new CategoryController();
 $productC = new ProductController();
 $userC = new UserController();
 $orderC = new OrderController();
 $statsC = new StatsController();
+$authC = new AuthController();
 $adminpage = $_GET["page"] ?? "index";
 ?>
 <!DOCTYPE html>
@@ -47,6 +49,9 @@ $adminpage = $_GET["page"] ?? "index";
                         break;
                     case 'categorys':
                         $cateC->xulyRequest();
+                        break;
+                    case 'logout':
+                        $authC->logout();
                         break;
                     default:
                         $statsC->list();
