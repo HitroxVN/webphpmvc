@@ -8,6 +8,7 @@ require_once __DIR__ . "/../app/controllers/users/UserController.php";
 require_once __DIR__ . "/../app/controllers/users/CartController.php";
 require_once __DIR__ . "/../app/controllers/users/CheckoutController.php";
 require_once __DIR__ . "/../app/controllers/users/OrderController.php";
+Session::checkHome();
 $cateC = new CategoryController();
 $productC = new ProductController();
 $authC = new AuthController();

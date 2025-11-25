@@ -36,8 +36,20 @@ class User
     // lấy ds user
     public function getAll()
     {
-        $sql = "SELECT * from {$this->table} where status != 'deleted'";
+        $sql = "SELECT * from {$this->table}";
         $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $p = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $p;
+    }
+
+    public function getByRole($role)
+    {
+        $sql = "SELECT * from {$this->table} where role = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $role);
         $stmt->execute();
         $result = $stmt->get_result();
         $p = $result->fetch_all(MYSQLI_ASSOC);

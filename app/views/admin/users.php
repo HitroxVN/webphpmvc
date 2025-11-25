@@ -1,5 +1,17 @@
 <section id="users">
     <h2 class="mb-3">Quản lý Người dùng</h2>
+    <form action="index.php" method="get">
+        <input type="hidden" name="page" value="users">
+<label>Lọc tài khoản theo role</label><br>
+    <select name="loc_role">
+        <option value="customer" <?php echo $_GET['loc_role'] == 'customer' ? 'selected' : '' ?>>Khách hàng</option>
+        <option value="staff" <?php echo $_GET['loc_role'] == 'staff' ? 'selected' : '' ?>>Nhân viên</option>
+        <option value="admin" <?php echo $_GET['loc_role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+    </select>
+    <button type="submit">Lọc</button>
+    </form>
+    
+
     <?php if (!empty($thongbao)): ?>
         <?php echo $thongbao ?>
     <?php endif; ?>

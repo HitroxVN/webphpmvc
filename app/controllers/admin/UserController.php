@@ -23,6 +23,10 @@ class UserController extends Controller
             if(!empty($a) && $a === 'edit' && !empty($_GET['id'])){
                 return $this->showFormEdit();
             }
+
+            if(!empty($_GET['loc_role'])){
+                return $this->loc_role();
+            }
         }
 
         return $this->list();
@@ -35,6 +39,15 @@ class UserController extends Controller
         unset($_SESSION['thongbao']);
         $users = $this->p->getAll();
         $this->view('admin/users', ['users' => $users, 'thongbao' => $thongbao]);
+    }
+
+    // lọc tài khaorn theo role
+    public function loc_role(){
+        $thongbao = $_SESSION['thongbao'] ?? null;
+        unset($_SESSION['thongbao']);
+        $role = $_GET['loc_role'] ?? null;
+        $u = $this->p->getByRole($role);
+        $this->view('admin/users', ['users' => $u, 'thongbao' => $thongbao]);
     }
 
     // view form edit

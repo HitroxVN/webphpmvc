@@ -11,6 +11,33 @@ class Session
         }
     }
 
+    // Chặn admin và staff truy cập trang home
+    public static function checkHome()
+    {
+        Session::start();
+
+        // chưa đăng nhập
+        if (!isset($_SESSION['user']['role'])) {
+            return;
+        }
+
+        $role = $_SESSION['user']['role'];
+
+        switch ($role) {
+            case 'admin':
+                header("Location: admin/");
+                exit;
+
+            case 'staff':
+                header("Location: staff/");
+                exit;
+
+            default:
+                return;
+        }
+    }
+
+
     // kiểm tra session login
     public static function checkLogin(): bool
     {

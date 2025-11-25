@@ -18,7 +18,7 @@ class UserController extends Controller
     // Lấy danh sách user
     public function list()
     {
-        $users = $this->p->getAll();
+        $users = $this->p->getByRole("customer");
         $this->view('staff/users', ['users' => $users]);
     }
 }

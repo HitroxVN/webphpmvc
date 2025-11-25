@@ -39,6 +39,19 @@ class OrderController extends Controller {
 
     /// xem danh sách đơn hàng của user
     public function listByUserId(){
+        $u = $this->user->getById($_GET['user']);
+
+        // bỏ qua role admin
+        if($u['role'] == 'admin'){
+            $this->redirect("index.php?page=users");
+            return;
+        }
+
+        // fix truyền id null
+        if(!$u){
+            $this->redirect("index.php?page=users");
+            return;
+        }
         $orders = $this->order->getByUser($_GET['user']);
         $thongbao = !$orders ? "Người dùng chưa đặt đơn nào." : "Danh sách đơn hàng của {$orders[0]['email']}";
         $this->view('staff/orders', [
