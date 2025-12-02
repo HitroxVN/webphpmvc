@@ -55,7 +55,8 @@
                             </td>
                             <td>
                                 <a href="index.php?page=users&action=edit&id=<?php echo $u['id']; ?>" class="btn btn-warning btn-sm me-1" style="display:inline-block;">Sửa</a>
-                                <form method="POST" action="index.php?page=users" style="display:inline-block;" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+                                <form method="POST" action="index.php" style="display:inline-block;" onclick="return alert('Bạn có chắc muốn xóa?');">
+                                    <input type="hidden" name="page" value="users">
                                     <input type="hidden" name="delete_id" value="<?php echo $u['id']; ?>">
                                     <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                                 </form>

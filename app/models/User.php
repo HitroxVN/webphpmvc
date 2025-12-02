@@ -71,7 +71,8 @@ class User
     // soft delete user 
     public function delete($id)
     {
-        $sql = "UPDATE {$this->table} SET status = 'deleted', updated_at = NOW() WHERE id = ?";
+        $sql = "delete from {$this->table} where id = ?";
+        // $sql = "UPDATE {$this->table} SET status = 'deleted', updated_at = NOW() WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $success = $stmt->execute();
