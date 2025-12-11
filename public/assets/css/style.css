@@ -7,7 +7,7 @@
 body {
   display: block;
   min-height: 100vh;
-  /* padding-top: var(--nav-height); */
+  padding-top: var(--nav-height);
 }
 
 /* ============= NAVIGATION ============= */
@@ -31,7 +31,6 @@ header {
 /* ============= MAIN CONTENT ============= */
 main {
   flex: 1;
-  padding-top: var(--nav-height);
 }
 
 /* ============= PRODUCT CARDS - HOME PAGE ============= */
@@ -126,3 +125,5 @@ body.admin-layout {
     width: 100%;
   }
 }
+
+/* video */

@@ -1,6 +1,6 @@
 <main>
   <!-- Hero Section -->
-  <section class="hero bg-body-secondary py-5">
+  <!-- <section class="hero bg-body-secondary py-5">
     <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between">
       <div class="mb-4 mb-lg-0">
         <h1 class="display-5 fw-bold">Giày thời trang — Phong cách của bạn</h1>
@@ -9,7 +9,27 @@
       </div>
       <img src="https://conndesign.vn/wp-content/uploads/2023/07/Thiet-ke-shop-giay-1.png" alt="hero" class="img-fluid rounded shadow w-25">
     </div>
-  </section>
+  </section> -->
+
+  <div class="position-relative" style="height:100vh; overflow:hidden;">
+    <video autoplay muted loop style="position:absolute; width:100%; height:100%; object-fit:cover;">
+      <source src="/WEBPHPMVC/public/assets/shoes.mp4" type="video/mp4">
+    </video>
+    <div class="position-absolute w-100 h-100" style="background:rgba(0,0,0,0.45);"></div>
+    <div class="position-absolute top-50 start-50 translate-middle text-white" style="z-index:3; width:100%; padding:0 50px;">
+      <h1 class="fw-bold" style="font-size:3rem; line-height:1.2;">
+        Giày thời trang — Phong cách của bạn
+      </h1>
+      <p class="mt-3" style="font-size:1.3rem; opacity:0.9;">
+        Chọn đôi giày hoàn hảo — thoải mái, bền và đẹp.
+      </p>
+      <a href="index.php?page=products" class="btn btn-outline-warning btn-lg px-4 mt-3">
+        Mua ngay
+      </a>
+    </div>
+
+</div>
+
 
   <!-- new Products Section -->
   <section class="featured py-5 bg-white" id="spnew">

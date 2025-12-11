@@ -30,10 +30,11 @@
                 <form action="index.php?page=cart" method="post">
                     <input type="hidden" name="product_id" value="<?php echo $products['id']; ?>">
                     <!-- Màu & Size -->
-                    <div class="mb-4">
+                    <div class="mb-4 row">
 
                         <?php if (!empty($products['sizeGroups'])): ?>
                             <?php foreach ($products['sizeGroups'] as $size => $colors): ?>
+                                <div class="col">
                                     <label class="fw-bold text-dark d-block mb-2">
                                         Size: <?php echo $size; ?>
                                     </label>
@@ -45,6 +46,7 @@
                                             </label>
                                         <?php endforeach; ?>
                                     </div>
+                                </div>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <p class="text-muted">Chưa có màu/size cho sản phẩm này.</p>

@@ -8,11 +8,11 @@
     </div>
 
     <!-- Lọc theo giá -->
-    <form action="index.php" method="get">
+    <form action="index.php" method="get" class="pb-4 input-group ">
       <input type="hidden" name="page" value="products">
-      Giá thấp nhất: <input type="number" name="min_price" min="0" step="1000" value="<?php echo $_GET['min_price'] ?? '' ?>">
-      Giá cao nhất: <input type="number" name="max_price" min="0" step="1000" value="<?php echo $_GET['max_price'] ?? '' ?>">
-      <button type="submit">Lọc</button>
+      Giá thấp nhất: <input type="number" name="min_price" min="0" step="1000" value="<?php echo $_GET['min_price'] ?? '' ?>" class="form-control">
+      Giá cao nhất: <input type="number" name="max_price" min="0" step="1000" value="<?php echo $_GET['max_price'] ?? '' ?>" class="form-control">
+      <button type="submit" class="btn btn-secondary">Lọc</button>
     </form>
 
     <!-- list sản phẩm -->

@@ -30,7 +30,7 @@
             <div class="card stat-card stat-danger">
                 <div class="card-body">
                     <h5 class="card-title">Tổng doanh thu</h5>
-                    <p class="card-text stat-value"><?php echo number_format($doanhthu, 0, ',', '.'); ?> vnđ</p>
+                    <p class="card-text stat-value"><?php echo number_format($doanhthu, 0, ',', '.'); ?> đ</p>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
 
                             <div class="bar-item">
                                 <div class="bar-value"><?= number_format($revenue, 0, ',', '.'); ?></div>
-                                <div class="bar" style="height: <?= $height ?>%; background: <?= $barColor ?>;"></div>
+                                <div class="bar" style="height: <?= $height ?>px; background: <?= $barColor ?>;"></div>
                                 <div class="bar-label"><?= $dayName; ?></div>
                             </div>
 
@@ -97,7 +97,7 @@
                             ?>
                             <div class="bar-item">
                                 <div class="bar-value"><?= number_format($revenue, 0, ',', '.'); ?></div>
-                                <div class="bar" style="height: <?= $height; ?>%; background: <?= $barColor; ?>"></div>
+                                <div class="bar" style="height: <?= $height; ?>px; background: <?= $barColor; ?>"></div>
                                 <div class="bar-label"><?= $monthName; ?></div>
                             </div>
                         <?php endforeach; ?>
