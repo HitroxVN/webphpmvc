@@ -8,6 +8,7 @@ require_once __DIR__ . "/../app/controllers/users/UserController.php";
 require_once __DIR__ . "/../app/controllers/users/CartController.php";
 require_once __DIR__ . "/../app/controllers/users/CheckoutController.php";
 require_once __DIR__ . "/../app/controllers/users/OrderController.php";
+require_once __DIR__ . "/../app/controllers/users/ContactController.php";
 Session::checkHome();
 $cateC = new CategoryController();
 $productC = new ProductController();
@@ -16,6 +17,7 @@ $userC = new UserController();
 $cartC = new CartController();
 $checkoutC = new CheckoutController();
 $orderC = new OrderController();
+$contactC = new ContactController();
 $main = $_GET['page'] ?? 'home';
 ?>
 <!doctype html>
@@ -34,42 +36,45 @@ $main = $_GET['page'] ?? 'home';
 
 <body class="d-flex flex-column min-vh-100">
     <?php $cateC->listHome(); ?>
-    <?php 
-        switch ($main) {
-            case 'profile':
-                Session::checkLogin() ? $userC->xulyRequest() : $authC->login();
-                break;
-            case 'category':
-                $cateC->xulyRequest();
-                break;
-            case 'products':
-                $productC->xulyRequest();
-                break;
-            case 'cart':
-                Session::checkLogin() ? $cartC->xulyRequest() : $authC->login();
-                break;
-            case 'register':
-                Session::checkLogin() ? $productC->home() : $authC->register();
-                break;
-            case 'login':
-                Session::checkLogin() ? $productC->home() : $authC->login();
-                break;
-            case 'logout':
-                $authC->logout();
-                break;
-            case 'checkout':
-                Session::checkLogin() ? $checkoutC->xulyRequest() : $authC->login();
-                break;
-            case 'success-order':
-                include_once __DIR__ . "/../app/views/home/success_order.php";
-                break;
-            case 'orders':
-                Session::checkLogin() ? $orderC->xulyRequest() : $authC->login();
-                break;
-            default:
-                $productC->home();
-                break;
-        }
+    <?php
+    switch ($main) {
+        case 'profile':
+            Session::checkLogin() ? $userC->xulyRequest() : $authC->login();
+            break;
+        case 'category':
+            $cateC->xulyRequest();
+            break;
+        case 'products':
+            $productC->xulyRequest();
+            break;
+        case 'cart':
+            Session::checkLogin() ? $cartC->xulyRequest() : $authC->login();
+            break;
+        case 'register':
+            Session::checkLogin() ? $productC->home() : $authC->register();
+            break;
+        case 'login':
+            Session::checkLogin() ? $productC->home() : $authC->login();
+            break;
+        case 'logout':
+            $authC->logout();
+            break;
+        case 'checkout':
+            Session::checkLogin() ? $checkoutC->xulyRequest() : $authC->login();
+            break;
+        case 'success-order':
+            include_once __DIR__ . "/../app/views/home/success_order.php";
+            break;
+        case 'orders':
+            Session::checkLogin() ? $orderC->xulyRequest() : $authC->login();
+            break;
+        case 'contact':
+            $contactC->xulyRequest();
+            break;
+        default:
+            $productC->home();
+            break;
+    }
     ?>
     <?php include_once __DIR__ . "/../app/views/home/nav.php"; ?>
     <?php include_once __DIR__ . "/../app/views/home/footer.php"; ?>

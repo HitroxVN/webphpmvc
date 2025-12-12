@@ -28,7 +28,7 @@
       </a>
     </div>
 
-</div>
+  </div>
 
 
   <!-- new Products Section -->
@@ -36,19 +36,19 @@
     <div class="container">
       <h2 class="text-center mb-5">Sản phẩm mới nhất</h2>
       <div id="featured-list" class="row g-4 justify-content-center">
-        <?php if(!empty($newProducts)): ?>
-          <?php foreach($newProducts as $p): ?>
+        <?php if (!empty($newProducts)): ?>
+          <?php foreach ($newProducts as $p): ?>
             <div class="col-6 col-md-3">
               <div class="card h-100 shadow-sm">
                 <div class="img-wrap">
                   <img src="<?=
-                    !empty($p['main_image']) && file_exists($p['main_image'])
-                      ? $p['main_image']
-                      : (file_exists('uploads/no-image.png')
-                        ? 'uploads/no-image.png'
-                        : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
-                      )
-                    ?>" class="card-img-top" alt="<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>">
+                            !empty($p['main_image']) && file_exists($p['main_image'])
+                              ? $p['main_image']
+                              : (file_exists('uploads/no-image.png')
+                                ? 'uploads/no-image.png'
+                                : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+                              )
+                            ?>" class="card-img-top" alt="<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>">
                 </div>
                 <div class="card-body text-center">
                   <h5 class="card-title"><?= $p['name']; ?></h5>
@@ -57,8 +57,8 @@
                 </div>
               </div>
             </div>
-        <?php endforeach; ?>
-          <?php endif; ?>
+          <?php endforeach; ?>
+        <?php endif; ?>
 
       </div>
     </div>
@@ -99,7 +99,7 @@
       <h2 class="text-center mb-4">About 4TC Shop</h2>
       <p class="text-center mb-4 lead">4TC Shop là cửa hàng giày thời trang uy tín, cung cấp những sản phẩm chất lượng, thoải mái và hợp thời trang. Chúng tôi cam kết mang đến trải nghiệm mua sắm tuyệt vời cho khách hàng.</p>
       <div class="text-center">
-        <a href="contact.html" class="btn btn-dark btn-lg">Liên hệ ngay</a>
+        <a href="index.php?page=contact" class="btn btn-dark btn-lg">Liên hệ ngay</a>
       </div>
     </div>
   </section>
