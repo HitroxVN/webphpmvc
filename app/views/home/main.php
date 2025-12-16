@@ -98,9 +98,9 @@
     <div class="container">
       <h2 class="text-center mb-4">About 4TC Shop</h2>
       <p class="text-center mb-4 lead">4TC Shop là cửa hàng giày thời trang uy tín, cung cấp những sản phẩm chất lượng, thoải mái và hợp thời trang. Chúng tôi cam kết mang đến trải nghiệm mua sắm tuyệt vời cho khách hàng.</p>
-      <div class="text-center">
+      <!-- <div class="text-center">
         <a href="contact.html" class="btn btn-dark btn-lg">Liên hệ ngay</a>
-      </div>
+      </div> -->
     </div>
   </section>
 </main>

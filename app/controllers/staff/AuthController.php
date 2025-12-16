@@ -54,6 +54,6 @@ class AuthController extends Controller
         unset($_SESSION['user']);
         session_destroy();
 
-        $this->redirect('index.php?page=home');
+        $this->redirect('../index.php?page=home');
     }
 }
