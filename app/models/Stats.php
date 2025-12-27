@@ -97,6 +97,7 @@ class Stats
         $sql = "SELECT DATE_FORMAT(created_at, '%Y-%m') AS month, SUM(total_amount) AS doanhthu 
         FROM orders 
         WHERE created_at >= ?
+        AND status IN ('confirmed','shipped','delivered')
         GROUP BY month ORDER BY month ASC";
 
         $stmt = $this->conn->prepare($sql);
@@ -116,6 +117,7 @@ class Stats
     $sql = "SELECT DATE(created_at) AS day, SUM(total_amount) AS doanhthu
             FROM orders
             WHERE created_at >= ?
+            AND status IN ('confirmed','shipped','delivered','shipping')
             GROUP BY day
             ORDER BY day ASC";
 
