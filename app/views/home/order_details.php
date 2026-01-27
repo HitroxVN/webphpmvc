@@ -27,7 +27,7 @@
 
   <div class="card p-4">
     <h5 class="mb-3">Sản phẩm trong đơn hàng</h5>
-    <?php $tong =0;?>
+    <?php $tong = 0; ?>
     <table class="table table-bordered table-hover">
       <thead class="table-light">
         <tr>
@@ -40,15 +40,18 @@
         </tr>
       </thead>
       <tbody>
-        <?php foreach($o_items as $o): ?>
-        <tr>
-          <td><?php echo $o['product_name'] ? $o['product_name'] : 'Sản phẩm bị xoá'; ?></td>
-          <td><?php echo $o['size'] ? $o['size'] : 'Sản phẩm bị xoá'; ?></td>
-          <td><?php echo $o['color'] ? $o['size'] : 'Sản phẩm bị xoá'; ?></td>
-          <td><?php echo $o['quantity']; ?></td>
-          <td><?php echo number_format($o['price'], 0, ',', '.'); ?> vnđ</td>
-          <td><?php echo number_format($o['price'] * $o['quantity'], 0, ',', '.'); $tong+=$o['price'] * $o['quantity'];?> vnđ</td>
-        </tr>
+        <?php foreach ($o_items as $o): ?>
+          <tr>
+            <td><?php echo $o['product_name'] ? $o['product_name'] : 'Sản phẩm bị xoá'; ?></td>
+            <td><?php echo $o['size'] ? $o['size'] : 'Sản phẩm bị xoá'; ?></td>
+            <td><?php echo $o['color'] ? $o['size'] : 'Sản phẩm bị xoá'; ?></td>
+            <td><?php echo $o['quantity']; ?></td>
+            <td><?php echo number_format($o['price'], 0, ',', '.'); ?> vnđ</td>
+            <td>
+              <?php echo number_format($o['price'] * $o['quantity'], 0, ',', '.');
+              $tong += $o['price'] * $o['quantity']; ?>
+              vnđ</td>
+          </tr>
         <?php endforeach; ?>
       </tbody>
       <tfoot>
@@ -61,6 +64,14 @@
 
     <div class="mt-3">
       <a href="index.php?page=orders" class="btn btn-secondary">Quay lại danh sách đơn hàng</a>
+      <?php if ($order['status'] == 'pending'): ?>
+        <form action="index.php?page=orders" method="post" style="display:inline-block;"
+          onsubmit="return confirm('Bạn có chắc chắn muốn huỷ đơn này?');">
+          <input type="hidden" name="action" value="cancel">
+          <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+          <button type="submit" class="btn btn-danger ms-2">Huỷ đơn</button>
+        </form>
+      <?php endif; ?>
     </div>
   </div>
 </div>
