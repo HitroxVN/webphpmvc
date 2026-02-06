@@ -93,11 +93,16 @@ class ProductController extends Controller
         // lấy ra tất cả thuộc tính theo id sp
         $variants = $this->variant->getByProductId($products['id']);
 
+        // lưu lại tất cả máu sắc
         $colors = [];
+        // lưu lại tất cả kích thươc
         $sizes = [];
+        // lưu lại số lượng
         $totalStock = 0;
+        // lưu lại id
         $vid = null;
 
+        // dùng để lưu lại màu sắc số lượng của sp theo kích thước
         $sizeGroups  = [];
 
         foreach ($variants as $v) {
@@ -116,6 +121,7 @@ class ProductController extends Controller
             // lâyus số lượng
             $totalStock += $v['stock'];
 
+            // mỗi kích thước sẽ là một lít chứa các thông tin như mầu sắc số lượng id thuộc tính của số đó
             $sizeGroups[$v['size']][] = [
                 'color' => $v['color'],
                 'stock' => $v['stock'],

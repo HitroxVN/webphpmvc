@@ -4,7 +4,8 @@ require_once __DIR__ . "/../../models/Order.php";
 require_once __DIR__ . "/../../models/OrderItems.php";
 require_once __DIR__ . "/../../core/Controller.php";
 
-class OrderController extends Controller {
+class OrderController extends Controller
+{
     private $user;
     private $order;
     private $order_item;
@@ -23,13 +24,13 @@ class OrderController extends Controller {
             if (!empty($_GET['id'])) {
                 return $this->detailsAdmin();
             }
-            if(!empty($_GET['user'])){
+            if (!empty($_GET['user'])) {
                 // echo "test" . $_GET['user'];
                 return $this->listByUserId();
             }
 
             // lọc trạng thái đơn hàng
-            if(!empty($_GET['loc_orders'])){
+            if (!empty($_GET['loc_orders'])) {
                 return $this->loc_orders();
             }
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,17 +44,18 @@ class OrderController extends Controller {
     }
 
     /// xem danh sách đơn hàng của user
-    public function listByUserId(){
+    public function listByUserId()
+    {
         $u = $this->user->getById($_GET['user']);
 
         // bỏ qua role admin
-        if($u['role'] == 'admin'){
+        if ($u['role'] == 'admin') {
             $this->redirect("index.php?page=users");
             return;
         }
 
         // fix truyền id null
-        if(!$u){
+        if (!$u) {
             $this->redirect("index.php?page=users");
             return;
         }
@@ -66,7 +68,8 @@ class OrderController extends Controller {
     }
 
     // view for admin
-    public function list(){
+    public function list()
+    {
         $orders = $this->order->getAll();
         $thongbao = $_SESSION['thongbao'] ?? null;
         unset($_SESSION['thongbao']);
@@ -78,7 +81,8 @@ class OrderController extends Controller {
     }
 
     // lọc trạng thái đơn hàng
-    public function loc_orders(){
+    public function loc_orders()
+    {
         $orders = $this->order->getByStatus($_GET['loc_orders']);
         $thongbao = $_SESSION['thongbao'] ?? null;
         unset($_SESSION['thongbao']);
@@ -112,5 +116,4 @@ class OrderController extends Controller {
             'o_items' => $order_items
         ]);
     }
-
 }
