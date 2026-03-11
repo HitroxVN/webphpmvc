@@ -50,7 +50,8 @@
             <td>
               <?php echo number_format($o['price'] * $o['quantity'], 0, ',', '.');
               $tong += $o['price'] * $o['quantity']; ?>
-              vnđ</td>
+              vnđ
+            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -64,6 +65,18 @@
 
     <div class="mt-3">
       <a href="index.php?page=orders" class="btn btn-secondary">Quay lại danh sách đơn hàng</a>
+
+      <?php if ($order['status'] == 'pending' && $order['payment_method'] == 'BANKING'): ?>
+        <a href="index.php?page=payment&id=<?php echo $order['id']; ?>" class="btn btn-primary ms-2"><i
+            class="bi bi-qr-code"></i> Tiếp tục thanh toán</a>
+        <!-- <form action="index.php?page=payment&id=<?php echo $order['id']; ?>" method="post" style="display:inline-block;"
+          onsubmit="return confirm('Bạn chắc chắn đã chuyển khoảng thành công chưa?');">
+          <input type="hidden" name="action" value="confirm_payment">
+          <button type="submit" class="btn btn-success ms-2"><i class="bi bi-check-circle me-1"></i> Tôi đã chuyển
+            tiền</button>
+        </form> -->
+      <?php endif; ?>
+
       <?php if ($order['status'] == 'pending'): ?>
         <form action="index.php?page=orders" method="post" style="display:inline-block;"
           onsubmit="return confirm('Bạn có chắc chắn muốn huỷ đơn này?');">

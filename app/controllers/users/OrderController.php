@@ -104,4 +104,51 @@ class OrderController extends Controller
 
         $this->redirect("index.php?page=orders");
     }
+
+    // hiển thị trang thanh toán và cập nhật trạng thái đã chuyển tiền
+    public function payment()
+    {
+        if (empty($_GET['id'])) {
+            $this->redirect("index.php?page=orders");
+            return;
+        }
+
+        $orderId = $_GET['id'];
+        $order = $this->order->getById($orderId);
+
+        if (!$order) {
+            $this->redirect("index.php?page=orders");
+            return;
+        }
+
+        if ($order['user_id'] != $_SESSION['user']['id']) {
+            $this->redirect("index.php?page=orders");
+            return;
+        }
+
+        // ❗ CHẶN nếu không phải đơn chờ thanh toán
+    if ($order['status'] !== 'pending') {
+        $_SESSION['thongbao'] = "Đơn hàng này không thể thanh toán.";
+        $this->redirect("index.php?page=orders&id=" . $orderId);
+        return;
+    }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'confirm_payment') {
+            // if ($order['status'] === 'pending') {
+                $this->order->updateStatus('pending_payment', $orderId);
+                $_SESSION['thongbao'] = "Đã thông báo chuyển tiền thành công cho đơn hàng #" . $orderId . ". Bộ phận CSKH sẽ xác nhận sớm nhất.";
+                $this->redirect("index.php?page=orders&id=" . $orderId);
+                return;
+            // }
+        }
+
+        if ($order['status'] === 'pending_payment') {
+            $this->redirect("index.php?page=orders&id=" . $orderId);
+            return;
+        }
+
+        $this->view('home/payment', [
+            'order' => $order
+        ]);
+    }
 }

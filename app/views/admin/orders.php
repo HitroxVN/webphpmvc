@@ -6,6 +6,7 @@
         <label>Lọc trạng thái đơn hàng</label><br>
         <select name="loc_orders">
             <option value="pending" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'pending' ? 'selected' : '' ?>>Chờ xác nhận</option>
+            <option value="pending_payment" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'pending_payment' ? 'selected' : '' ?>>Chờ xác nhận thanh toán</option>
             <option value="confirmed" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'confirmed' ? 'selected' : '' ?>>Đã xác nhận</option>
             <option value="shipping" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'shipping' ? 'selected' : '' ?>>Đang giao hàng</option>
             <option value="shipped" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'shipped' ? 'selected' : '' ?>>Đã giao hàng</option>
@@ -41,6 +42,8 @@
                             <select name="status_update" class="form-select form-select-sm">
                                 <option value="pending" <?php echo $o['status'] == 'pending' ? 'selected' : '' ?>>Chờ xác nhận
                                 </option>
+                                <option value="pending_payment" <?php echo $o['status'] == 'pending_payment' ? 'selected' : '' ?>>Chờ xác nhận TT
+                                </option>
                                 <option value="confirmed" <?php echo $o['status'] == 'confirmed' ? 'selected' : '' ?>>Đã xác
                                     nhận</option>
                                 <option value="shipped" <?php echo $o['status'] == 'shipped' ? 'selected' : '' ?>>Đã giao hàng
@@ -49,12 +52,18 @@
                                     hàng</option>
                                 <option value="delivered" <?php echo $o['status'] == 'delivered' ? 'selected' : '' ?>>Đã nhận
                                     hàng</option>
-                                <option value="cancelled" <?php echo $o['status'] == 'cancelled' ? 'selected' : '' ?>>Đã huỷ đơn
+                                <option value="cancelled" <?php echo $o['status'] == 'cancelled' ? 'selected' : '' ?>>Đã huỷ
+                                    đơn
                                 </option>
                             </select>
                         </td>
                         <td>
-                            <button class="btn btn-success btn-sm me-1" type="submit">Xác nhận</button>
+                            <?php if ($o['status'] == 'pending_payment'): ?>
+                                <button class="btn btn-primary btn-sm me-1" type="submit"
+                                    onclick="this.form.status_update.value='confirmed'">Xác nhận TT</button>
+                            <?php else: ?>
+                                <button class="btn btn-success btn-sm me-1" type="submit">Cập nhật</button>
+                            <?php endif; ?>
                             <a class="btn btn-warning btn-sm" href="index.php?page=orders&id=<?php echo $o['id']; ?>">Chi
                                 tiết</a>
                             <?php if ($o['status'] == 'pending'): ?>

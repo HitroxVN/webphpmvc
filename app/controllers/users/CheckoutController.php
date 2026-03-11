@@ -26,9 +26,10 @@ class CheckoutController extends Controller
         $this->product = new Product();
     }
 
-    public function xulyRequest(){
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if(!empty($_POST['payment_method'])){
+    public function xulyRequest()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_POST['payment_method'])) {
                 $this->taoOrders();
             }
         }
@@ -44,20 +45,21 @@ class CheckoutController extends Controller
         $carts = [];
 
         if (!empty($_SESSION['checkout_product'])) {
-            
+
             $variant = $this->variant->getById($_SESSION['checkout_product']['vid']);
             $p = $this->product->getById($_SESSION['checkout_product']['pid']);
-            if($variant && $p){
-            $carts = [
-                [
-                    'product_name' => $p['name'],
-                    'size' => $variant['size'],
-                    'color' => $variant['color'],
-                    'quantity' => $_SESSION['checkout_product']['qty'],
-                    'price' => $p['price'],
-                    'image_url' => $variant['image_url'] ?? $variant['main_image'] ?? ''
-                ]
-            ];}
+            if ($variant && $p) {
+                $carts = [
+                    [
+                        'product_name' => $p['name'],
+                        'size' => $variant['size'],
+                        'color' => $variant['color'],
+                        'quantity' => $_SESSION['checkout_product']['qty'],
+                        'price' => $p['price'],
+                        'image_url' => $variant['image_url'] ?? $variant['main_image'] ?? ''
+                    ]
+                ];
+            }
         } else {
             $carts = $this->cart->getCartByUser($uid);
         }
@@ -68,23 +70,24 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function taoOrders(){
-            // echo "test";
-            $uid = $_SESSION['user']['id'];
-            $address = $_SESSION['user']['address'];
-            $phone = $_SESSION['user']['phone'];
-            $name = $_SESSION['user']['full_name'];
+    public function taoOrders()
+    {
+        // echo "test";
+        $uid = $_SESSION['user']['id'];
+        $address = $_SESSION['user']['address'];
+        $phone = $_SESSION['user']['phone'];
+        $name = $_SESSION['user']['full_name'];
 
-            // bắt buộc thêm sđt, mail nhận hàng
-            if(empty($address) || empty($phone) || empty($name)){
-                // thêm session thông báo
-                $this->redirect('index.php?page=profile');
-                exit();
-            }
+        // bắt buộc thêm sđt, mail nhận hàng
+        if (empty($address) || empty($phone) || empty($name)) {
+            // thêm session thông báo
+            $this->redirect('index.php?page=profile');
+            exit();
+        }
 
-            $users = $this->user->getById($uid);
+        $users = $this->user->getById($uid);
 
-            $carts = [];
+        $carts = [];
 
         if (!empty($_SESSION['checkout_product'])) {
             $cp = $_SESSION['checkout_product'];
@@ -105,35 +108,40 @@ class CheckoutController extends Controller
         } else {
             $carts = $this->cart->getCartByUser($uid);
         }
-            
-            $payment = $_POST['payment_method'];
-            $total = $_POST['total']; // tổng tiền
 
-            $oid = $this->order->add($uid, $address, $total, $payment);
-            
-            foreach($carts as $c){
-                $vid = $c['variant_id'];
-                $qty = $c['quantity'];
-                $price = $c['price'];
+        $payment = $_POST['payment_method'];
+        $total = $_POST['total']; // tổng tiền
 
-                $v = $this->variant->getById($vid);
-                $capnhap = max(0, $v['stock'] - $qty);
+        $oid = $this->order->add($uid, $address, $total, $payment);
 
-                $this->order_item->add($oid, $vid, $qty, $price);
-                // câp nhập lại stock
-                $this->variant->update($c['color'], $c['size'], $capnhap, $vid);
-            }
+        foreach ($carts as $c) {
+            $vid = $c['variant_id'];
+            $qty = $c['quantity'];
+            $price = $c['price'];
 
-            $_SESSION['order_success'] = [
-                'id' => $oid,
-                'name' => $users['full_name'],
-                'address' => $address,
-                'payment' => $payment,
-                'total' => $_POST['total'],
-                'created_at' => date('d/m/Y H:i:s')
-            ];
-            $this->cart->deleteByUser($uid);
+            $v = $this->variant->getById($vid);
+            $capnhap = max(0, $v['stock'] - $qty);
+
+            $this->order_item->add($oid, $vid, $qty, $price);
+            // câp nhập lại stock
+            $this->variant->update($c['color'], $c['size'], $capnhap, $vid);
+        }
+
+        $_SESSION['order_success'] = [
+            'id' => $oid,
+            'name' => $users['full_name'],
+            'address' => $address,
+            'payment' => $payment,
+            'total' => $_POST['total'],
+            'created_at' => date('d/m/Y H:i:s')
+        ];
+        $this->cart->deleteByUser($uid);
+
+        if ($payment === 'BANKING') {
+            $this->redirect('index.php?page=payment&id=' . $oid);
+        } else {
             $this->redirect('index.php?page=success-order');
-        
+        }
+
     }
 }
