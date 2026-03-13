@@ -7,3 +7,4 @@ note.txt
 /vendor/
 composer.json
 composer.lock
+sepay_webhook.log

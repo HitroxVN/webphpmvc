@@ -82,7 +82,7 @@
                     <label class="form-check-label" for="cod">Thanh toán khi nhận hàng (COD)</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="payment_method" id="bank" disabled>
+                    <input class="form-check-input" type="radio" name="payment_method" value="banking" id="bank">
                     <label class="form-check-label" for="bank">Chuyển khoản ngân hàng</label>
                 </div>
 

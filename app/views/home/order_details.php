@@ -50,7 +50,8 @@
             <td>
               <?php echo number_format($o['price'] * $o['quantity'], 0, ',', '.');
               $tong += $o['price'] * $o['quantity']; ?>
-              vnđ</td>
+              vnđ
+            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -69,6 +70,11 @@
           onsubmit="return confirm('Bạn có chắc chắn muốn huỷ đơn này?');">
           <input type="hidden" name="action" value="cancel">
           <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+          <?php if ($order['payment_method'] == 'BANKING'): ?>
+            <button type="button" class="btn btn-success ms-2"
+              onclick="window.location.href='index.php?page=payment&id=<?php echo $order['id']; ?>'">Tiếp tục thanh
+              toán</button>
+          <?php endif; ?>
           <button type="submit" class="btn btn-danger ms-2">Huỷ đơn</button>
         </form>
       <?php endif; ?>
