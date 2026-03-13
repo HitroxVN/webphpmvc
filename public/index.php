@@ -76,6 +76,10 @@ $main = $_GET['page'] ?? 'home';
 
     <!-- Bootstrap Js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chatbot -->
+     <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/02/06/06/20260206064246-28CC5WJW.js" defer></script>
 </body>
 
 </html>

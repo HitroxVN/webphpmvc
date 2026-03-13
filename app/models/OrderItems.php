@@ -24,10 +24,12 @@ class OrderItems
 
     // lấy thông tin sp theo order id
     public function getByOrderId($oid) {
-        $sql = "SELECT oi.*, pv.size, pv.color, p.name AS product_name 
+        $sql = "SELECT oi.*, pv.size, pv.color, p.name AS product_name, c.name AS category_name, pi.image_url
             FROM {$this->table} oi
             LEFT JOIN product_variants pv ON oi.variant_id = pv.id
             LEFT JOIN products p ON pv.product_id = p.id
+            LEFT JOIN categories c ON p.category_id = c.id
+            LEFT JOIN product_images pi ON p.id = pi.product_id AND pi.is_primary = TRUE
             WHERE oi.order_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $oid);
@@ -36,6 +38,6 @@ class OrderItems
         $items = $rs->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
         return $items;
-}
+    }
 
 }
