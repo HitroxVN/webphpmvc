@@ -31,8 +31,13 @@ class Payment
         return $payment;
     }
 
-    public function getByOrderId()
+    public function updateStatus($referenceCode, $status)
     {
-
+        $sql = "update {$this->table} set status = ? where bank_transaction_code = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ss", $status, $referenceCode);
+        $payment = $stmt->execute();
+        $stmt->close();
+        return $payment;
     }
 }
