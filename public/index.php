@@ -8,6 +8,7 @@ require_once __DIR__ . "/../app/controllers/users/UserController.php";
 require_once __DIR__ . "/../app/controllers/users/CartController.php";
 require_once __DIR__ . "/../app/controllers/users/CheckoutController.php";
 require_once __DIR__ . "/../app/controllers/users/OrderController.php";
+require_once __DIR__ . "/../app/controllers/users/PaymentController.php";
 Session::checkHome();
 $cateC = new CategoryController();
 $productC = new ProductController();
@@ -16,6 +17,7 @@ $userC = new UserController();
 $cartC = new CartController();
 $checkoutC = new CheckoutController();
 $orderC = new OrderController();
+$paymentC = new PaymentController();
 $main = $_GET['page'] ?? 'home';
 ?>
 <!doctype html>
@@ -65,6 +67,12 @@ $main = $_GET['page'] ?? 'home';
                 break;
             case 'orders':
                 Session::checkLogin() ? $orderC->xulyRequest() : $authC->login();
+                break;
+            case 'payment':
+                Session::checkLogin() ? $paymentC->xulyRequest() : $authC->login();
+                break;
+            case 'check_payment_status':
+                Session::checkLogin() ? $paymentC->checkStatus() : false;
                 break;
             default:
                 $productC->home();

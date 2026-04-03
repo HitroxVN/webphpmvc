@@ -9,13 +9,18 @@ if (!file_exists($envPath)) {
     die(".env is require");
 }
 
-$env = parse_ini_file($envPath, false, INI_SCANNER_RAW);
+// composer autoload
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-$host = $env['DB_HOST'];
-$username = $env['DB_USER'];
-$password = $env['DB_PASS'];
-$dbname = $env['DB_NAME'];
-$port = (int)$env['DB_PORT'];
+// Dotenv
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
+$host = $_ENV['DB_HOST'];
+$username = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASS'];
+$dbname = $_ENV['DB_NAME'];
+$port = (int) $_ENV['DB_PORT'];
 
 $connect = new mysqli($host, $username, $password, $dbname, $port);
 

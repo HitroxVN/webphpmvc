@@ -133,7 +133,12 @@ class CheckoutController extends Controller
                 'created_at' => date('d/m/Y H:i:s')
             ];
             $this->cart->deleteByUser($uid);
-            $this->redirect('index.php?page=success-order');
+            
+            if ($payment === 'banking') {
+                $this->redirect('index.php?page=payment&id=' . $oid);
+            } else {
+                $this->redirect('index.php?page=success-order');
+            }
         
     }
 }
