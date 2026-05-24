@@ -6,6 +6,7 @@
         <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=categorys"><i class="bi bi-list-ul me-2"></i>Quản lý danh mục</a></li>
         <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=products"><i class="bi bi-box-seam me-2"></i>Quản lý sản phẩm</a></li>
         <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=orders"><i class="bi bi-bag-check me-2"></i>Quản lý đơn hàng</a></li>
+        <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=payments"><i class="bi bi-credit-card me-2"></i>Quản lý thanh toán</a></li>
         <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=users"><i class="bi bi-people me-2"></i>Quản lý người dùng</a></li>
     </ul>
     <hr class="border-secondary opacity-50">

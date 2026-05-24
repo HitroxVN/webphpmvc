@@ -40,4 +40,47 @@ class Payment
         $stmt->close();
         return $payment;
     }
+
+    public function getAllPayments()
+    {
+        $sql = "SELECT p.*, o.user_id, u.full_name as user_name 
+                FROM {$this->table} p
+                LEFT JOIN orders o ON p.order_id = o.id
+                LEFT JOIN users u ON o.user_id = u.id
+                ORDER BY p.transaction_date DESC";
+        $result = $this->conn->query($sql);
+        $payments = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $payments[] = $row;
+            }
+        }
+        return $payments;
+    }
+
+    public function getPaymentById($id)
+    {
+        $sql = "SELECT p.*, o.user_id, u.full_name as user_name 
+                FROM {$this->table} p
+                LEFT JOIN orders o ON p.order_id = o.id
+                LEFT JOIN users u ON o.user_id = u.id
+                WHERE p.id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $payment = $result->fetch_assoc();
+        $stmt->close();
+        return $payment;
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM {$this->table} WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $status = $stmt->execute();
+        $stmt->close();
+        return $status;
+    }
 }
