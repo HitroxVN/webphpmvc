@@ -133,6 +133,7 @@ class CheckoutController extends Controller
                 'created_at' => date('d/m/Y H:i:s')
             ];
             $this->cart->deleteByUser($uid);
+            $_SESSION['cart_count'] = 0;
             
             if ($payment === 'banking') {
                 $this->redirect('index.php?page=payment&id=' . $oid);

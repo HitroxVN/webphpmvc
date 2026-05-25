@@ -1,14 +1,17 @@
 <?php
 require_once __DIR__ . "/../../core/Controller.php";
 require_once __DIR__ . "/../../models/User.php";
+require_once __DIR__ . "/../../models/Cart.php";
 
 class AuthController extends Controller
 {
     private $user;
+    private $cart;
 
     public function __construct()
     {
         $this->user = new User();
+        $this->cart = new Cart();
     }
 
     public function register()
@@ -71,6 +74,9 @@ class AuthController extends Controller
                         $errors[] = "Tài khoản đã bị khóa";
                     } elseif (password_verify($password, $u['password'])) {
                         $_SESSION['user'] = $u;
+                        $cartItems = $this->cart->getCartByUser($u['id']);
+                        $_SESSION['cart_count'] = count($cartItems);
+
                         $this->redirect('index.php?page=home');
                         return;
                     } else {

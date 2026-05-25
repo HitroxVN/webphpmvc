@@ -5,7 +5,6 @@
         <li class="nav-item mb-1"><a class="nav-link text-white" href="."><i class="bi bi-bar-chart me-2"></i>Thống kê</a></li>
         <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=products"><i class="bi bi-box-seam me-2"></i>Quản lý sản phẩm</a></li>
         <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=orders"><i class="bi bi-bag-check me-2"></i>Quản lý đơn hàng</a></li>
-        <li class="nav-item mb-1"><a class="nav-link text-white" href="index.php?page=users"><i class="bi bi-people me-2"></i>Quản lý khách hàng</a></li>
     </ul>
     <hr class="border-secondary opacity-50">
     <ul class="nav flex-column mt-4">

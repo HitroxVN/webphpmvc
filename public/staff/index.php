@@ -3,13 +3,11 @@ ob_start();
 require_once __DIR__ . "/../../app/core/Session.php";
 require_once __DIR__ . "/../../app/controllers/staff/OrderController.php";
 require_once __DIR__ . "/../../app/controllers/staff/ProductController.php";
-require_once __DIR__ . "/../../app/controllers/staff/UserController.php";
 require_once __DIR__ . "/../../app/controllers/admin/StatsController.php";
 require_once __DIR__ . "/../../app/controllers/staff/AuthController.php";
 Session::checkStaffLogin();
 $orderC = new OrderController();
 $productC = new ProductController();
-$userC = new UserController();
 $statsC = new StatsController();
 $authC = new AuthController();
 $adminpage = $_GET["page"] ?? "home";
@@ -39,9 +37,6 @@ $adminpage = $_GET["page"] ?? "home";
                         break;
                     case 'orders':
                         $orderC->xulyRequest();
-                        break;
-                    case 'users':
-                        $userC->xulyRequest();
                         break;
                     case 'logout':
                         $authC->logout();
