@@ -6,10 +6,23 @@
     <?php endif; ?>
 
     <!-- Form thêm -->
-    <form method="POST" class="mb-3 d-flex gap-2">
-        <input type="text" name="add_name" class="form-control w-25" placeholder="Nhập tên danh mục mới" required>
-        <button class="btn btn-primary">Thêm</button>
-    </form>
+    <div class="card mb-4 shadow-sm border-primary">
+        <div class="card-body">
+            <form method="POST" class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label class="fw-bold"><i class="bi bi-tag me-1"></i> Thêm danh mục mới:</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="add_name" class="form-control" placeholder="Nhập tên danh mục..." required>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary px-4">
+                        <i class="bi bi-plus-lg"></i> Thêm ngay
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <table class="table table-bordered text-center">
         <thead class="table-dark">

@@ -3,13 +3,29 @@
     <?php if (!empty($thongbao)): ?>
         <?php echo $thongbao ?>
     <?php endif; ?>
-    <a href="index.php?page=products&action=add" class="btn btn-primary mb-3">Thêm sản phẩm mới</a><br>
-    <form action="index.php" method="get">
-        <input type="hidden" name="page" value="products">
-        <input type="text" name="search" placeholder="Tìm kiếm sản phẩm, danh mục">
-        <button type="submit">Search</button>
-    </form>
-    <br>
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+            <a href="index.php?page=products&action=add" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-1"></i> Thêm sản phẩm mới
+            </a>
+        </div>
+        <div class="col-md-6">
+            <form action="index.php" method="get">
+                <input type="hidden" name="page" value="products">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm, danh mục..." value="<?php echo $_GET['search'] ?? ''; ?>">
+                    <button class="btn btn-outline-primary" type="submit">
+                        <i class="bi bi-search"></i> Tìm kiếm
+                    </button>
+                    <?php if(!empty($_GET['search'])): ?>
+                        <a href="index.php?page=products" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </form>
+        </div>
+    </div>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>

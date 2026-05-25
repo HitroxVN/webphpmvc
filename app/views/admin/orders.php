@@ -1,19 +1,37 @@
 <section id="orders">
     <h2 class="mb-3">Quản lý Đơn hàng</h2>
 
-    <form action="index.php" method="get">
-        <input type="hidden" name="page" value="orders">
-        <label>Lọc trạng thái đơn hàng</label><br>
-        <select name="loc_orders">
-            <option value="pending" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'pending' ? 'selected' : '' ?>>Chờ xác nhận</option>
-            <option value="confirmed" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'confirmed' ? 'selected' : '' ?>>Đã xác nhận</option>
-            <option value="shipping" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'shipping' ? 'selected' : '' ?>>Đang giao hàng</option>
-            <option value="shipped" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'shipped' ? 'selected' : '' ?>>Đã giao hàng</option>
-            <option value="delivered" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'delivered' ? 'selected' : '' ?>>Đã nhận hàng</option>
-            <option value="cancelled" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'cancelled' ? 'selected' : '' ?>>Đã huỷ đơn</option>
-        </select>
-        <button type="submit">Lọc</button>
-    </form>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form action="index.php" method="get" class="row g-3 align-items-center">
+                <input type="hidden" name="page" value="orders">
+                <div class="col-auto">
+                    <label class="fw-bold"><i class="bi bi-funnel me-1"></i> Lọc trạng thái:</label>
+                </div>
+                <div class="col-md-4">
+                    <select name="loc_orders" class="form-select">
+                        <option value="">-- Tất cả trạng thái --</option>
+                        <option value="pending" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'pending' ? 'selected' : '' ?>>Chờ xác nhận</option>
+                        <option value="confirmed" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'confirmed' ? 'selected' : '' ?>>Đã xác nhận</option>
+                        <option value="shipping" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'shipping' ? 'selected' : '' ?>>Đang giao hàng</option>
+                        <option value="shipped" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'shipped' ? 'selected' : '' ?>>Đã giao hàng</option>
+                        <option value="delivered" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'delivered' ? 'selected' : '' ?>>Đã nhận hàng</option>
+                        <option value="cancelled" <?php echo isset($_GET['loc_orders']) && $_GET['loc_orders'] == 'cancelled' ? 'selected' : '' ?>>Đã huỷ đơn</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-filter"></i> Lọc
+                    </button>
+                    <?php if(!empty($_GET['loc_orders'])): ?>
+                        <a href="index.php?page=orders" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <?php if (!empty($thongbao)): ?>
         <?php echo $thongbao ?>

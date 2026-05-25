@@ -3,11 +3,25 @@
     <?php if (!empty($thongbao)): ?>
         <?php echo $thongbao ?>
     <?php endif; ?>
-    <form action="index.php" method="get">
-        <input type="hidden" name="page" value="products">
-        <input type="text" name="search" placeholder="Tìm kiếm sản phẩm, danh mục">
-        <button type="submit">Search</button>
-    </form>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form action="index.php" method="get" class="row g-3 justify-content-end">
+                <input type="hidden" name="page" value="products">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm, danh mục..." value="<?php echo $_GET['search'] ?? ''; ?>">
+                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                        <?php if(!empty($_GET['search'])): ?>
+                            <a href="index.php?page=products" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <br>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">

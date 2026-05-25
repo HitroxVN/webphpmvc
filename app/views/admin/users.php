@@ -1,15 +1,33 @@
 <section id="users">
     <h2 class="mb-3">Quản lý Người dùng</h2>
-    <form action="index.php" method="get">
-        <input type="hidden" name="page" value="users">
-<label>Lọc tài khoản theo role</label><br>
-    <select name="loc_role">
-        <option value="customer" <?php echo isset($_GET['loc_role']) && $_GET['loc_role'] == 'customer' ? 'selected' : '' ?>>Khách hàng</option>
-        <option value="staff" <?php echo isset($_GET['loc_role']) && $_GET['loc_role'] == 'staff' ? 'selected' : '' ?>>Nhân viên</option>
-        <option value="admin" <?php echo isset($_GET['loc_role']) && $_GET['loc_role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
-    </select>
-    <button type="submit">Lọc</button>
-    </form>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form action="index.php" method="get" class="row g-3 align-items-center">
+                <input type="hidden" name="page" value="users">
+                <div class="col-auto">
+                    <label class="fw-bold"><i class="bi bi-person-badge me-1"></i> Lọc theo vai trò:</label>
+                </div>
+                <div class="col-md-3">
+                    <select name="loc_role" class="form-select">
+                        <option value="">-- Tất cả vai trò --</option>
+                        <option value="customer" <?php echo isset($_GET['loc_role']) && $_GET['loc_role'] == 'customer' ? 'selected' : '' ?>>Khách hàng</option>
+                        <option value="staff" <?php echo isset($_GET['loc_role']) && $_GET['loc_role'] == 'staff' ? 'selected' : '' ?>>Nhân viên</option>
+                        <option value="admin" <?php echo isset($_GET['loc_role']) && $_GET['loc_role'] == 'admin' ? 'selected' : '' ?>>Quản trị viên</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-filter"></i> Lọc
+                    </button>
+                    <?php if(!empty($_GET['loc_role'])): ?>
+                        <a href="index.php?page=users" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </form>
+        </div>
+    </div>
     
 
     <?php if (!empty($thongbao)): ?>
